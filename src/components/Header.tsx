@@ -12,7 +12,7 @@ const Header = () => {
               <Heart className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-foreground">InclusãoPCD</h1>
+              <h1 className="text-xl font-bold text-foreground">PCDentro</h1>
               <p className="text-xs text-muted-foreground">Conectando talentos</p>
             </div>
           </div>

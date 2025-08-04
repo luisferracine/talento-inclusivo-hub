@@ -12,7 +12,7 @@ const Footer = () => {
                 <Heart className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-foreground">InclusãoPCD</h3>
+                <h3 className="text-lg font-bold text-foreground">PCDentro</h3>
                 <p className="text-xs text-muted-foreground">Conectando talentos</p>
               </div>
             </div>
@@ -88,7 +88,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">contato@inclusaopcd.com.br</span>
+                <span className="text-sm text-muted-foreground">contato@pcdentro.com.br</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-muted-foreground" />
@@ -106,7 +106,7 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2024 InclusãoPCD. Todos os direitos reservados.
+            © 2024 PCDentro. Todos os direitos reservados.
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
