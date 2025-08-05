@@ -19,15 +19,15 @@ Todas as cores em HSL para máxima compatibilidade
     --popover: 0 0% 100%;
     --popover-foreground: 222 84% 4.9%;
 
-    /* Azul profissional e confiável */
-    --primary: 220 90% 50%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 220 90% 45%;
+    /* Azul claro #96c5ef */
+    --primary: 207 73% 76%;
+    --primary-foreground: 222 84% 4.9%;
+    --primary-hover: 207 73% 70%;
 
-    /* Verde inclusivo e esperançoso */
-    --secondary: 145 80% 45%;
-    --secondary-foreground: 0 0% 100%;
-    --secondary-hover: 145 80% 40%;
+    /* Laranja suave #ebae7c */
+    --secondary: 28 68% 71%;
+    --secondary-foreground: 222 84% 4.9%;
+    --secondary-hover: 28 68% 65%;
 
     /* Tons neutros acessíveis */
     --muted: 220 20% 96%;
@@ -45,9 +45,9 @@ Todas as cores em HSL para máxima compatibilidade
     --ring: 220 90% 50%;
 
     /* Gradientes inspiradores */
-    --gradient-hero: linear-gradient(135deg, hsl(220 90% 50%), hsl(145 80% 45%));
+    --gradient-hero: linear-gradient(135deg, hsl(207 73% 76%), hsl(28 68% 71%));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 30% 98%));
-    --gradient-accent: linear-gradient(90deg, hsl(200 100% 95%), hsl(220 100% 96%));
+    --gradient-accent: linear-gradient(90deg, hsl(207 73% 90%), hsl(28 68% 85%));
 
     /* Sombras elegantes */
     --shadow-soft: 0 4px 20px -2px hsl(220 90% 50% / 0.1);
