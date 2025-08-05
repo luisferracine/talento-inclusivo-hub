@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Users, Building2, Heart } from "lucide-react";
+import { Users, Building2, Accessibility } from "lucide-react";
 
 const Header = () => {
   return (
@@ -9,7 +9,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-hero rounded-lg flex items-center justify-center">
-              <Heart className="w-6 h-6 text-white" />
+              <Accessibility className="w-6 h-6 text-white" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-foreground">PCDentro</h1>
