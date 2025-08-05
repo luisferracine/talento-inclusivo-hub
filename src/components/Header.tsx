@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Users, Building2, Accessibility } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -51,23 +52,27 @@ const Header = () => {
 
           {/* Action Buttons */}
           <div className="flex items-center gap-3">
-            <Button 
-              variant="default" 
-              size="sm" 
-              className="hidden sm:flex"
-              aria-label="Login para pessoas com deficiência"
-            >
-              <Users className="w-4 h-4" />
-              Login PCD
-            </Button>
-            <Button 
-              variant="default" 
-              size="sm"
-              aria-label="Login para empresas"
-            >
-              <Building2 className="w-4 h-4" />
-              Login Empresa
-            </Button>
+            <Link to="/login">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="hidden sm:flex"
+                aria-label="Login para pessoas com deficiência"
+              >
+                <Users className="w-4 h-4" />
+                Login PCD
+              </Button>
+            </Link>
+            <Link to="/login">
+              <Button 
+                variant="secondary" 
+                size="sm"
+                aria-label="Login para empresas"
+              >
+                <Building2 className="w-4 h-4" />
+                Login Empresa
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
