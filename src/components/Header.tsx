@@ -52,7 +52,7 @@ const Header = () => {
           {/* Action Buttons */}
           <div className="flex items-center gap-3">
             <Button 
-              variant="outline" 
+              variant="default" 
               size="sm" 
               className="hidden sm:flex"
               aria-label="Login para pessoas com deficiência"
@@ -61,7 +61,7 @@ const Header = () => {
               Login PCD
             </Button>
             <Button 
-              variant="secondary" 
+              variant="default" 
               size="sm"
               aria-label="Login para empresas"
             >
