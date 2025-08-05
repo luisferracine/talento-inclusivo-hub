@@ -71,6 +71,8 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-hover': 'var(--gradient-hover)',
 				'gradient-hero': 'var(--gradient-hero)',
 				'gradient-card': 'var(--gradient-card)',
 				'gradient-accent': 'var(--gradient-accent)'
