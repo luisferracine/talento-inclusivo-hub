@@ -39,7 +39,7 @@ const HeroSection = () => {
             <Button 
               variant="hero" 
               size="hero"
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300"
               aria-label="Cadastrar currículo como pessoa com deficiência"
             >
               <Users className="w-5 h-5" />
@@ -50,7 +50,7 @@ const HeroSection = () => {
             <Button 
               variant="inclusive" 
               size="hero"
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto bg-gradient-hero hover:bg-gradient-accent text-white font-semibold shadow-card hover:shadow-hover hover:scale-105 transition-all duration-300"
               aria-label="Cadastrar empresa para buscar talentos"
             >
               <Building2 className="w-5 h-5" />
