@@ -49,24 +49,15 @@ const Header = () => {
             </a>
           </nav>
 
-          {/* Action Buttons */}
-          <div className="flex items-center gap-3">
-            <Button 
-              variant="default" 
-              size="sm" 
-              className="hidden sm:flex"
-              aria-label="Login para pessoas com deficiência"
-            >
-              <Users className="w-4 h-4" />
-              Login PCD
-            </Button>
+          {/* Action Button */}
+          <div className="flex items-center">
             <Button 
               variant="default" 
               size="sm"
-              aria-label="Login para empresas"
+              aria-label="Fazer login"
             >
-              <Building2 className="w-4 h-4" />
-              Login Empresa
+              <Users className="w-4 h-4" />
+              Login
             </Button>
           </div>
         </div>
