@@ -34,13 +34,13 @@ const Header = () => {
             >
               Sobre
             </a>
-            <a 
-              href="#vagas" 
+            <Link 
+              to="/vagas" 
               className="text-foreground hover:text-primary transition-colors font-medium"
               aria-label="Ver vagas disponíveis"
             >
               Vagas
-            </a>
+            </Link>
             <a 
               href="#contato" 
               className="text-foreground hover:text-primary transition-colors font-medium"
