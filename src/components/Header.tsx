@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Users, Building2, Accessibility } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -55,9 +56,12 @@ const Header = () => {
               variant="default" 
               size="sm"
               aria-label="Fazer login"
+              asChild
             >
-              <Users className="w-4 h-4" />
-              Login
+              <Link to="/login">
+                <Users className="w-4 h-4" />
+                Login
+              </Link>
             </Button>
           </div>
         </div>
