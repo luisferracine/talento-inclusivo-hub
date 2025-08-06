@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 
 const Vagas = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterLocation, setFilterLocation] = useState("");
-  const [filterType, setFilterType] = useState("");
+  const [filterLocation, setFilterLocation] = useState("all");
+  const [filterType, setFilterType] = useState("all");
 
   const vagas = [
     {
@@ -90,8 +90,8 @@ const Vagas = () => {
   const filteredVagas = vagas.filter(vaga => {
     const matchesSearch = vaga.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          vaga.empresa.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesLocation = !filterLocation || vaga.localizacao.includes(filterLocation);
-    const matchesType = !filterType || vaga.tipo === filterType;
+    const matchesLocation = filterLocation === "all" || vaga.localizacao.includes(filterLocation);
+    const matchesType = filterType === "all" || vaga.tipo === filterType;
     
     return matchesSearch && matchesLocation && matchesType;
   });
@@ -148,7 +148,7 @@ const Vagas = () => {
                   <SelectValue placeholder="Localização" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Todas as cidades</SelectItem>
+                  <SelectItem value="all">Todas as cidades</SelectItem>
                   <SelectItem value="São Paulo">São Paulo</SelectItem>
                   <SelectItem value="Rio de Janeiro">Rio de Janeiro</SelectItem>
                   <SelectItem value="Belo Horizonte">Belo Horizonte</SelectItem>
@@ -163,7 +163,7 @@ const Vagas = () => {
                   <SelectValue placeholder="Tipo de contrato" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Todos os tipos</SelectItem>
+                  <SelectItem value="all">Todos os tipos</SelectItem>
                   <SelectItem value="CLT">CLT</SelectItem>
                   <SelectItem value="PJ">PJ</SelectItem>
                   <SelectItem value="Estágio">Estágio</SelectItem>
