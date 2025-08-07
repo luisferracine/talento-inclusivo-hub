@@ -8,7 +8,9 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Users, Building2, ArrowLeft, Mail, Lock, User, MapPin, Phone } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Users, Building2, ArrowLeft, Mail, Lock, User, MapPin, Phone, Calendar, CreditCard, Accessibility } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -21,13 +23,35 @@ const loginSchema = z.object({
 const pcdSignupSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.string().email("Email inválido"),
+  phone: z.string().min(10, "Telefone inválido"),
+  cpf: z.string().min(11, "CPF inválido"),
+  birthDate: z.string().min(1, "Data de nascimento é obrigatória"),
   password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
   confirmPassword: z.string(),
-  phone: z.string().min(10, "Telefone inválido"),
   city: z.string().min(2, "Cidade deve ter pelo menos 2 caracteres"),
+  disabilityType: z.string().min(1, "Tipo de deficiência é obrigatório"),
+  otherDisability: z.string().optional(),
+  needsAccessibility: z.string().min(1, "Campo obrigatório"),
+  accessibilityDescription: z.string().optional(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Senhas não coincidem",
   path: ["confirmPassword"],
+}).refine((data) => {
+  if (data.disabilityType === "outra" && !data.otherDisability) {
+    return false;
+  }
+  return true;
+}, {
+  message: "Especifique o tipo de deficiência",
+  path: ["otherDisability"],
+}).refine((data) => {
+  if (data.needsAccessibility === "sim" && !data.accessibilityDescription) {
+    return false;
+  }
+  return true;
+}, {
+  message: "Descreva as necessidades de acessibilidade",
+  path: ["accessibilityDescription"],
 });
 
 const empresaSignupSchema = z.object({
@@ -59,6 +83,10 @@ const Login = () => {
   const pcdSignupForm = useForm<z.infer<typeof pcdSignupSchema>>({
     resolver: zodResolver(pcdSignupSchema),
   });
+
+  // Watch para campos condicionais
+  const watchDisabilityType = pcdSignupForm.watch("disabilityType");
+  const watchNeedsAccessibility = pcdSignupForm.watch("needsAccessibility");
 
   const empresaSignupForm = useForm<z.infer<typeof empresaSignupSchema>>({
     resolver: zodResolver(empresaSignupSchema),
@@ -197,6 +225,50 @@ const Login = () => {
                           </FormItem>
                         )}
                       />
+                      
+                      <div className="grid grid-cols-2 gap-4">
+                        <FormField
+                          control={pcdSignupForm.control}
+                          name="phone"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Telefone</FormLabel>
+                              <FormControl>
+                                <div className="relative">
+                                  <Phone className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                                  <Input
+                                    {...field}
+                                    placeholder="(11) 99999-9999"
+                                    className="pl-10"
+                                  />
+                                </div>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={pcdSignupForm.control}
+                          name="cpf"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>CPF</FormLabel>
+                              <FormControl>
+                                <div className="relative">
+                                  <CreditCard className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                                  <Input
+                                    {...field}
+                                    placeholder="000.000.000-00"
+                                    className="pl-10"
+                                  />
+                                </div>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
                       <FormField
                         control={pcdSignupForm.control}
                         name="email"
@@ -218,19 +290,20 @@ const Login = () => {
                           </FormItem>
                         )}
                       />
+
                       <div className="grid grid-cols-2 gap-4">
                         <FormField
                           control={pcdSignupForm.control}
-                          name="phone"
+                          name="birthDate"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Telefone</FormLabel>
+                              <FormLabel>Data de nascimento</FormLabel>
                               <FormControl>
                                 <div className="relative">
-                                  <Phone className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                                  <Calendar className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
                                   <Input
                                     {...field}
-                                    placeholder="(11) 99999-9999"
+                                    type="date"
                                     className="pl-10"
                                   />
                                 </div>
@@ -260,6 +333,7 @@ const Login = () => {
                           )}
                         />
                       </div>
+
                       <FormField
                         control={pcdSignupForm.control}
                         name="password"
@@ -281,6 +355,7 @@ const Login = () => {
                           </FormItem>
                         )}
                       />
+                      
                       <FormField
                         control={pcdSignupForm.control}
                         name="confirmPassword"
@@ -302,6 +377,96 @@ const Login = () => {
                           </FormItem>
                         )}
                       />
+
+                      <FormField
+                        control={pcdSignupForm.control}
+                        name="disabilityType"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Tipo de deficiência</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecione o tipo de deficiência" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent className="bg-background border border-border z-50">
+                                <SelectItem value="visual">Visual</SelectItem>
+                                <SelectItem value="auditiva">Auditiva</SelectItem>
+                                <SelectItem value="fisica">Física</SelectItem>
+                                <SelectItem value="intelectual">Intelectual</SelectItem>
+                                <SelectItem value="outra">Outra</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      {watchDisabilityType === "outra" && (
+                        <FormField
+                          control={pcdSignupForm.control}
+                          name="otherDisability"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Especifique o tipo de deficiência</FormLabel>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  placeholder="Descreva sua deficiência"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      )}
+
+                      <FormField
+                        control={pcdSignupForm.control}
+                        name="needsAccessibility"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Necessita de acessibilidade no local de trabalho?</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecione uma opção" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent className="bg-background border border-border z-50">
+                                <SelectItem value="sim">Sim</SelectItem>
+                                <SelectItem value="nao">Não</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      {watchNeedsAccessibility === "sim" && (
+                        <FormField
+                          control={pcdSignupForm.control}
+                          name="accessibilityDescription"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Descreva as necessidades de acessibilidade</FormLabel>
+                              <FormControl>
+                                <div className="relative">
+                                  <Accessibility className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                                  <Textarea
+                                    {...field}
+                                    placeholder="Descreva as adaptações necessárias no ambiente de trabalho..."
+                                    className="pl-10 pt-3 min-h-[80px]"
+                                  />
+                                </div>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      )}
+
                       <Button type="submit" className="w-full" size="lg">
                         <Users className="w-4 h-4 mr-2" />
                         Criar conta PCD
