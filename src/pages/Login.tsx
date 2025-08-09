@@ -130,20 +130,6 @@ const Login = () => {
 
         <Card className="shadow-elegant">
           <CardHeader className="text-center">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex-1" />
-              <div className="flex items-center gap-3">
-                <Label htmlFor="colorblind-mode" className="text-sm font-medium flex items-center gap-2">
-                  <Eye className="w-4 h-4" />
-                  Modo Daltonismo
-                </Label>
-                <Switch
-                  id="colorblind-mode"
-                  checked={isColorblindMode}
-                  onCheckedChange={toggleColorblindMode}
-                />
-              </div>
-            </div>
             <CardTitle className="text-2xl font-bold">
               {mode === "login" ? "Fazer Login" : "Criar Conta"}
             </CardTitle>

@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Users, Building2, Accessibility } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Users, Building2, Accessibility, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useColorblindMode } from "@/hooks/use-colorblind-mode";
 
 const Header = () => {
+  const { isColorblindMode, toggleColorblindMode } = useColorblindMode();
   return (
     <header className="w-full bg-card shadow-soft border-b border-border">
       <div className="container mx-auto px-4 py-4">
@@ -50,8 +54,22 @@ const Header = () => {
             </a>
           </nav>
 
-          {/* Action Button */}
-          <div className="flex items-center">
+          {/* Action Buttons */}
+          <div className="flex items-center gap-4">
+            {/* Colorblind Mode Switch */}
+            <div className="flex items-center gap-2">
+              <Label htmlFor="colorblind-mode-header" className="text-sm font-medium flex items-center gap-1">
+                <Eye className="w-4 h-4" />
+                <span className="hidden sm:inline">Daltonismo</span>
+              </Label>
+              <Switch
+                id="colorblind-mode-header"
+                checked={isColorblindMode}
+                onCheckedChange={toggleColorblindMode}
+              />
+            </div>
+            
+            {/* Login Button */}
             <Button 
               variant="default" 
               size="sm"
