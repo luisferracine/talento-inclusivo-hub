@@ -10,9 +10,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Users, Building2, ArrowLeft, Mail, Lock, User, MapPin, Phone, Calendar, CreditCard, Accessibility } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Users, Building2, ArrowLeft, Mail, Lock, User, MapPin, Phone, Calendar, CreditCard, Accessibility, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { useColorblindMode } from "@/hooks/use-colorblind-mode";
 
 // Schemas de validação
 const loginSchema = z.object({
@@ -70,6 +72,7 @@ const empresaSignupSchema = z.object({
 const Login = () => {
   const [activeTab, setActiveTab] = useState("pcd");
   const [mode, setMode] = useState<"login" | "signup">("login");
+  const { isColorblindMode, toggleColorblindMode } = useColorblindMode();
 
   // Forms
   const pcdLoginForm = useForm<z.infer<typeof loginSchema>>({
@@ -127,6 +130,20 @@ const Login = () => {
 
         <Card className="shadow-elegant">
           <CardHeader className="text-center">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex-1" />
+              <div className="flex items-center gap-3">
+                <Label htmlFor="colorblind-mode" className="text-sm font-medium flex items-center gap-2">
+                  <Eye className="w-4 h-4" />
+                  Modo Daltonismo
+                </Label>
+                <Switch
+                  id="colorblind-mode"
+                  checked={isColorblindMode}
+                  onCheckedChange={toggleColorblindMode}
+                />
+              </div>
+            </div>
             <CardTitle className="text-2xl font-bold">
               {mode === "login" ? "Fazer Login" : "Criar Conta"}
             </CardTitle>
