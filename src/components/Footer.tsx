@@ -57,9 +57,6 @@ const Footer = () => {
               <a href="#vagas" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Vagas
               </a>
-              <a href="#" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Blog
-              </a>
             </nav>
           </div>
 
@@ -88,11 +85,11 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">contato@pcdentro.com.br</span>
+                <span className="text-sm text-muted-foreground">pcdentro@contato.com.br</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">(11) 9999-9999</span>
+                <span className="text-sm text-muted-foreground">+55 (16) 9 9312-5207</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-muted-foreground" />
