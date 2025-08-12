@@ -87,8 +87,8 @@ const LoginSection = () => {
                 </Button>
                 <div className="flex items-center justify-center">
                   <Button 
-                    variant="outline" 
-                    className="text-sm text-muted-foreground hover:text-foreground border-border bg-transparent hover:bg-muted"
+                    variant="ghost" 
+                    className="text-sm text-muted-foreground hover:text-foreground bg-transparent hover:bg-muted border-0"
                     aria-label="Criar nova conta PCD"
                   >
                     <UserPlus className="w-4 h-4" />
@@ -168,8 +168,8 @@ const LoginSection = () => {
                 </Button>
                 <div className="flex items-center justify-center">
                   <Button 
-                    variant="outline" 
-                    className="text-sm text-muted-foreground hover:text-foreground border-border bg-transparent hover:bg-muted"
+                    variant="ghost" 
+                    className="text-sm text-muted-foreground hover:text-foreground bg-transparent hover:bg-muted border-0"
                     aria-label="Cadastrar nova empresa"
                   >
                     <PlusCircle className="w-4 h-4" />
