@@ -13,13 +13,13 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-primary bg-background text-primary hover:bg-secondary hover:text-secondary-foreground hover:border-secondary",
+          "border border-primary bg-gradient-primary text-white hover:bg-gradient-hover shadow-soft hover:shadow-hover hover:border-secondary",
         secondary:
-          "bg-primary text-primary-foreground hover:bg-secondary hover:text-secondary-foreground shadow-soft hover:shadow-hover",
-        ghost: "text-primary hover:bg-secondary hover:text-secondary-foreground",
-        link: "text-primary underline-offset-4 hover:underline hover:text-secondary",
-        hero: "bg-primary text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 hover:bg-secondary hover:text-secondary-foreground transition-all duration-300",
-        inclusive: "bg-primary text-primary-foreground hover:bg-secondary hover:text-secondary-foreground border-2 border-primary hover:border-secondary font-semibold shadow-soft hover:shadow-hover",
+          "bg-gradient-hero text-white hover:bg-gradient-accent shadow-soft hover:shadow-hover",
+        ghost: "bg-gradient-primary text-white hover:bg-gradient-hover shadow-soft hover:shadow-hover",
+        link: "bg-gradient-primary text-white hover:bg-gradient-hover shadow-soft hover:shadow-hover underline-offset-4 hover:underline",
+        hero: "bg-gradient-primary text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 hover:bg-gradient-hover transition-all duration-300",
+        inclusive: "bg-gradient-hero text-white hover:bg-gradient-accent border-2 border-primary hover:border-secondary font-semibold shadow-soft hover:shadow-hover",
       },
       size: {
         default: "h-12 px-6 py-3",

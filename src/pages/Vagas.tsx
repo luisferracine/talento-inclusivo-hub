@@ -222,7 +222,7 @@ const Vagas = () => {
                     <Users className="w-4 h-4" />
                     Vaga inclusiva para PCD
                   </div>
-                  <Button>
+                  <Button variant="default">
                     Candidatar-se
                   </Button>
                 </div>
