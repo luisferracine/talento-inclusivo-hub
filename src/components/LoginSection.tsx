@@ -79,8 +79,8 @@ const LoginSection = () => {
 
               <div className="text-center pt-4 space-y-2">
                 <Button 
-                  variant="link" 
-                  className="text-sm text-muted-foreground hover:text-primary"
+                  variant="ghost" 
+                  className="text-sm text-slate-600 hover:text-primary bg-transparent hover:bg-transparent"
                   aria-label="Recuperar senha da conta PCD"
                 >
                   Esqueci minha senha
@@ -88,7 +88,7 @@ const LoginSection = () => {
                 <div className="flex items-center justify-center">
                   <Button 
                     variant="ghost" 
-                    className="text-sm text-muted-foreground bg-transparent border-0 hover:bg-transparent hover:text-muted-foreground"
+                    className="text-sm text-primary hover:text-secondary bg-transparent hover:bg-transparent"
                     aria-label="Criar nova conta PCD"
                   >
                     <UserPlus className="w-4 h-4" />
@@ -160,8 +160,8 @@ const LoginSection = () => {
 
               <div className="text-center pt-4 space-y-2">
                 <Button 
-                  variant="link" 
-                  className="text-sm text-muted-foreground hover:text-secondary"
+                  variant="ghost" 
+                  className="text-sm text-slate-600 hover:text-primary bg-transparent hover:bg-transparent"
                   aria-label="Recuperar senha da conta empresarial"
                 >
                   Esqueci minha senha
@@ -169,7 +169,7 @@ const LoginSection = () => {
                 <div className="flex items-center justify-center">
                   <Button 
                     variant="ghost" 
-                    className="text-sm text-muted-foreground bg-transparent border-0 hover:bg-transparent hover:text-muted-foreground"
+                    className="text-sm text-primary hover:text-secondary bg-transparent hover:bg-transparent"
                     aria-label="Cadastrar nova empresa"
                   >
                     <PlusCircle className="w-4 h-4" />
