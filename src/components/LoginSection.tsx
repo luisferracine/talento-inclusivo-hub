@@ -169,7 +169,7 @@ const LoginSection = () => {
                 <div className="flex items-center justify-center">
                   <Button 
                     variant="ghost" 
-                    className="text-sm text-primary hover:text-secondary bg-transparent hover:bg-transparent"
+                    className="text-sm text-secondary hover:text-primary bg-transparent hover:bg-transparent"
                     aria-label="Cadastrar nova empresa"
                   >
                     <PlusCircle className="w-4 h-4" />
