@@ -7,6 +7,8 @@ import { ColorblindModeProvider } from "@/hooks/use-colorblind-mode";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Vagas from "./pages/Vagas";
+import DashboardEmpresa from "./pages/DashboardEmpresa";
+import DashboardPcd from "./pages/DashboardPcd";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +24,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/vagas" element={<Vagas />} />
+            <Route path="/dashboard-empresa" element={<DashboardEmpresa />} />
+            <Route path="/dashboard-pcd" element={<DashboardPcd />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
