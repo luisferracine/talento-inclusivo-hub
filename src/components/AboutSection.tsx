@@ -56,7 +56,7 @@ const AboutSection = () => {
         </div>
 
         {/* Main content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center mb-16">
+        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <div className="space-y-6">
             <h3 className="text-2xl font-bold text-foreground">
               Transformando o mercado de trabalho
@@ -120,7 +120,7 @@ const AboutSection = () => {
         </div>
 
         {/* Features grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <Card 
               key={index} 

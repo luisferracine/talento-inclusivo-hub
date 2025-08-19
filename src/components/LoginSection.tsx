@@ -17,7 +17,7 @@ const LoginSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto px-4">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Login PCD */}
           <Card className="shadow-card border-border hover:shadow-hover transition-all duration-300">
             <CardHeader className="text-center pb-4">

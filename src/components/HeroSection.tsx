@@ -20,7 +20,7 @@ const HeroSection = () => {
           </div>
 
           {/* Main heading */}
-          <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
             Conectando{" "}
             <span className="bg-gradient-hero bg-clip-text text-transparent">
               talentos diversos
@@ -29,50 +29,48 @@ const HeroSection = () => {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed px-4">
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
             Uma plataforma inclusiva que aproxima pessoas com deficiência de empresas 
             comprometidas com a diversidade, criando um futuro mais justo e igualitário.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col gap-3 sm:gap-4 justify-center items-center mb-12 px-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Button 
               variant="hero" 
-              size="default"
-              className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0 text-sm sm:text-base"
+              size="hero"
+              className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0"
               aria-label="Cadastrar currículo como pessoa com deficiência"
             >
-              <Users className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="hidden sm:inline">Sou PCD - Cadastrar Currículo</span>
-              <span className="sm:hidden">PCD - Cadastrar</span>
-              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+              <Users className="w-5 h-5" />
+              Sou PCD - Cadastrar Currículo
+              <ArrowRight className="w-5 h-5" />
             </Button>
             
             <Button 
               variant="hero" 
-              size="default"
-              className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0 text-sm sm:text-base"
+              size="hero"
+              className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0"
               aria-label="Cadastrar empresa para buscar talentos"
             >
-              <Building2 className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="hidden sm:inline">Sou Empresa - Buscar Talentos</span>
-              <span className="sm:hidden">Empresa - Buscar</span>
+              <Building2 className="w-5 h-5" />
+              Sou Empresa - Buscar Talentos
             </Button>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-16 px-4">
-            <div className="bg-card p-4 sm:p-6 rounded-xl shadow-card border border-border">
-              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">1000+</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Currículos Cadastrados</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+            <div className="bg-card p-6 rounded-xl shadow-card border border-border">
+              <div className="text-3xl font-bold text-primary mb-2">1000+</div>
+              <div className="text-sm text-muted-foreground">Currículos Cadastrados</div>
             </div>
-            <div className="bg-card p-4 sm:p-6 rounded-xl shadow-card border border-border">
-              <div className="text-2xl sm:text-3xl font-bold text-secondary mb-2">200+</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Empresas Parceiras</div>
+            <div className="bg-card p-6 rounded-xl shadow-card border border-border">
+              <div className="text-3xl font-bold text-secondary mb-2">200+</div>
+              <div className="text-sm text-muted-foreground">Empresas Parceiras</div>
             </div>
-            <div className="bg-card p-4 sm:p-6 rounded-xl shadow-card border border-border">
-              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">500+</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Contratações Realizadas</div>
+            <div className="bg-card p-6 rounded-xl shadow-card border border-border">
+              <div className="text-3xl font-bold text-primary mb-2">500+</div>
+              <div className="text-sm text-muted-foreground">Contratações Realizadas</div>
             </div>
           </div>
         </div>

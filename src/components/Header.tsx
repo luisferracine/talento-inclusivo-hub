@@ -17,18 +17,50 @@ const Header = () => {
               <Accessibility className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-lg sm:text-xl font-bold text-foreground">PCDentro</h1>
-              <p className="text-xs text-muted-foreground hidden sm:block">Conectando talentos</p>
+              <h1 className="text-xl font-bold text-foreground">PCDentro</h1>
+              <p className="text-xs text-muted-foreground">Conectando talentos</p>
             </div>
           </div>
 
+          {/* Navigation */}
+          <nav className="hidden md:flex items-center gap-6">
+            <a 
+              href="#home" 
+              className="text-foreground hover:text-primary transition-colors font-medium"
+              aria-label="Ir para página inicial"
+            >
+              Início
+            </a>
+            <a 
+              href="#sobre" 
+              className="text-foreground hover:text-primary transition-colors font-medium"
+              aria-label="Sobre nós"
+            >
+              Sobre
+            </a>
+            <Link 
+              to="/vagas" 
+              className="text-foreground hover:text-primary transition-colors font-medium"
+              aria-label="Ver vagas disponíveis"
+            >
+              Vagas
+            </Link>
+            <a 
+              href="#contato" 
+              className="text-foreground hover:text-primary transition-colors font-medium"
+              aria-label="Entre em contato"
+            >
+              Contato
+            </a>
+          </nav>
+
           {/* Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-4">
             {/* Colorblind Mode Switch */}
-            <div className="flex items-center gap-1 sm:gap-2">
-              <Label htmlFor="colorblind-mode-header" className="text-xs sm:text-sm font-medium flex items-center gap-1">
-                <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span className="hidden lg:inline">Daltonismo</span>
+            <div className="flex items-center gap-2">
+              <Label htmlFor="colorblind-mode-header" className="text-sm font-medium flex items-center gap-1">
+                <Eye className="w-4 h-4" />
+                <span className="hidden sm:inline">Daltonismo</span>
               </Label>
               <Switch
                 id="colorblind-mode-header"
@@ -43,11 +75,10 @@ const Header = () => {
               size="sm"
               aria-label="Fazer login"
               asChild
-              className="text-xs sm:text-sm px-2 sm:px-4"
             >
               <Link to="/login">
-                <Users className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span className="hidden xs:inline">Login</span>
+                <Users className="w-4 h-4" />
+                Login
               </Link>
             </Button>
           </div>

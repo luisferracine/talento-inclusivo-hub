@@ -130,8 +130,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-2 sm:p-4">
-      <div className="w-full max-w-sm sm:max-w-md">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
         {/* Back button */}
         <Link 
           to="/" 

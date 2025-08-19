@@ -112,27 +112,27 @@ const DashboardPcd = () => {
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+          <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-xl sm:text-2xl font-bold text-foreground">Dashboard PCD</h1>
-              <p className="text-sm sm:text-base text-muted-foreground">Encontre oportunidades inclusivas</p>
+              <h1 className="text-2xl font-bold text-foreground">Dashboard PCD</h1>
+              <p className="text-muted-foreground">Encontre oportunidades inclusivas</p>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3">
-              <Avatar className="w-8 h-8 sm:w-10 sm:h-10">
+            <div className="flex items-center gap-3">
+              <Avatar>
                 <AvatarImage src="/placeholder-avatar.jpg" alt={perfilResumo.nome} />
-                <AvatarFallback className="text-xs">AS</AvatarFallback>
+                <AvatarFallback>AS</AvatarFallback>
               </Avatar>
-              <div className="text-left sm:text-right">
-                <p className="text-sm sm:text-base font-medium text-foreground">{perfilResumo.nome}</p>
-                <p className="text-xs sm:text-sm text-muted-foreground">{perfilResumo.profissao}</p>
+              <div className="text-right">
+                <p className="font-medium text-foreground">{perfilResumo.nome}</p>
+                <p className="text-sm text-muted-foreground">{perfilResumo.profissao}</p>
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div className="container mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Painel Lateral */}
           <aside className="lg:col-span-1 space-y-4">
             {/* Resumo do Perfil */}
@@ -219,16 +219,16 @@ const DashboardPcd = () => {
             {/* Busca */}
             <Card>
               <CardContent className="pt-6">
-                <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-                  <div className="relative flex-1 w-full">
+                <div className="flex items-center gap-4">
+                  <div className="relative flex-1">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                     <Input 
-                      placeholder="Buscar vagas..." 
-                      className="pl-10 text-sm"
+                      placeholder="Buscar vagas por título, empresa ou habilidades..." 
+                      className="pl-10"
                     />
                   </div>
-                  <Button variant="default" size="sm" className="w-full sm:w-auto">
-                    Buscar
+                  <Button variant="default">
+                    Buscar Vagas
                   </Button>
                 </div>
               </CardContent>
@@ -256,32 +256,31 @@ const DashboardPcd = () => {
                             <Heart className="w-4 h-4 fill-red-500 text-red-500" />
                           )}
                         </div>
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-2">
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
                           <div className="flex items-center gap-1">
-                            <Building className="w-3 h-3 sm:w-4 sm:h-4" />
-                            <span className="truncate">{vaga.empresa}</span>
+                            <Building className="w-4 h-4" />
+                            {vaga.empresa}
                           </div>
                           <div className="flex items-center gap-1">
-                            <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
-                            <span className="truncate">{vaga.localizacao}</span>
+                            <MapPin className="w-4 h-4" />
+                            {vaga.localizacao}
                           </div>
                           <div className="flex items-center gap-1">
-                            <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                            <span>{vaga.publicadoEm}</span>
+                            <Clock className="w-4 h-4" />
+                            {vaga.publicadoEm}
                           </div>
                         </div>
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-sm">
+                        <div className="flex items-center gap-4 text-sm">
                           <span className="font-medium text-primary">{vaga.salario}</span>
                           <Badge variant="outline">{vaga.tipo}</Badge>
                         </div>
                       </div>
-                      <div className="flex sm:flex-col gap-2 ml-2 sm:ml-0">
-                        <Button variant="outline" size="sm" className="sm:w-auto">
-                          <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <div className="flex flex-col gap-2">
+                        <Button variant="outline" size="sm">
+                          <Heart className="w-4 h-4" />
                         </Button>
-                        <Button variant="default" size="sm" className="sm:w-auto text-xs sm:text-sm">
-                          <span className="hidden sm:inline">Candidatar-se</span>
-                          <span className="sm:hidden">Aplicar</span>
+                        <Button variant="default" size="sm">
+                          Candidatar-se
                         </Button>
                       </div>
                     </div>
