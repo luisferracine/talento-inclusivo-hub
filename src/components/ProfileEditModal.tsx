@@ -160,7 +160,7 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-[95vw] sm:max-w-4xl max-h-[90vh] overflow-y-auto m-2 sm:m-4">
         <DialogHeader>
           <DialogTitle>Editar Perfil</DialogTitle>
           <DialogDescription>
@@ -171,22 +171,22 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <Tabs defaultValue="personal" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="personal" className="flex items-center gap-2">
-                  <User className="w-4 h-4" />
-                  Pessoal
+              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 h-auto">
+                <TabsTrigger value="personal" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                  <User className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden xs:inline">Pessoal</span>
                 </TabsTrigger>
-                <TabsTrigger value="accessibility" className="flex items-center gap-2">
-                  <Settings className="w-4 h-4" />
-                  Acessibilidade
+                <TabsTrigger value="accessibility" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                  <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden xs:inline">Acessibilidade</span>
                 </TabsTrigger>
-                <TabsTrigger value="security" className="flex items-center gap-2">
-                  <Shield className="w-4 h-4" />
-                  Segurança
+                <TabsTrigger value="security" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                  <Shield className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden xs:inline">Segurança</span>
                 </TabsTrigger>
-                <TabsTrigger value="documents" className="flex items-center gap-2">
-                  <FileText className="w-4 h-4" />
-                  Documentos
+                <TabsTrigger value="documents" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                  <FileText className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden xs:inline">Documentos</span>
                 </TabsTrigger>
               </TabsList>
 
