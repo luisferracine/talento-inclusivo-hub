@@ -69,9 +69,13 @@ const empresaSignupSchema = z.object({
   path: ["confirmPassword"],
 });
 
+const resetPasswordSchema = z.object({
+  email: z.string().email("Email inválido"),
+});
+
 const Login = () => {
   const [activeTab, setActiveTab] = useState("pcd");
-  const [mode, setMode] = useState<"login" | "signup">("login");
+  const [mode, setMode] = useState<"login" | "signup" | "reset">("login");
   const { isColorblindMode, toggleColorblindMode } = useColorblindMode();
 
   // Forms
@@ -95,6 +99,10 @@ const Login = () => {
     resolver: zodResolver(empresaSignupSchema),
   });
 
+  const resetPasswordForm = useForm<z.infer<typeof resetPasswordSchema>>({
+    resolver: zodResolver(resetPasswordSchema),
+  });
+
   // Handlers
   const onPcdLogin = (values: z.infer<typeof loginSchema>) => {
     console.log("PCD Login:", values);
@@ -116,6 +124,11 @@ const Login = () => {
     toast.success("Cadastro realizado com sucesso!");
   };
 
+  const onResetPassword = (values: z.infer<typeof resetPasswordSchema>) => {
+    console.log("Reset Password:", values);
+    toast.success("E-mail de redefinição enviado com sucesso!");
+  };
+
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -131,27 +144,74 @@ const Login = () => {
         <Card className="shadow-elegant">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold">
-              {mode === "login" ? "Fazer Login" : "Criar Conta"}
+              {mode === "login" ? "Fazer Login" : mode === "signup" ? "Criar Conta" : "Redefinir Senha"}
             </CardTitle>
             <CardDescription>
               {mode === "login" 
                 ? "Escolha seu tipo de conta para continuar"
-                : "Preencha os dados para criar sua conta"
+                : mode === "signup" 
+                ? "Preencha os dados para criar sua conta"
+                : "Digite seu email para receber as instruções"
               }
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="pcd" className="flex items-center gap-2">
-                  <Users className="w-4 h-4" />
-                  PCD
-                </TabsTrigger>
-                <TabsTrigger value="empresa" className="flex items-center gap-2">
-                  <Building2 className="w-4 h-4" />
-                  Empresa
-                </TabsTrigger>
-              </TabsList>
+            {mode === "reset" ? (
+              <div className="space-y-4">
+                <Form {...resetPasswordForm}>
+                  <form onSubmit={resetPasswordForm.handleSubmit(onResetPassword)} className="space-y-4">
+                    <FormField
+                      control={resetPasswordForm.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <Mail className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                              <Input
+                                {...field}
+                                type="email"
+                                placeholder="seu.email@exemplo.com"
+                                className="pl-10"
+                              />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button type="submit" className="w-full" size="lg">
+                      <Mail className="w-4 h-4 mr-2" />
+                      Enviar email de redefinição
+                    </Button>
+                  </form>
+                </Form>
+                
+                <div className="text-center">
+                  <span className="text-sm text-muted-foreground">
+                    Lembrou da senha?{" "}
+                    <button 
+                      onClick={() => setMode("login")}
+                      className="text-primary hover:text-primary/80 transition-colors font-medium"
+                    >
+                      Voltar ao login
+                    </button>
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="pcd" className="flex items-center gap-2">
+                    <Users className="w-4 h-4" />
+                    PCD
+                  </TabsTrigger>
+                  <TabsTrigger value="empresa" className="flex items-center gap-2">
+                    <Building2 className="w-4 h-4" />
+                    Empresa
+                  </TabsTrigger>
+                </TabsList>
 
               <TabsContent value="pcd" className="space-y-4 mt-6">
                 {mode === "login" ? (
@@ -479,12 +539,12 @@ const Login = () => {
                 )}
                 
                 <div className="text-center">
-                  <a 
-                    href="#" 
+                  <button 
+                    onClick={() => setMode("reset")}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     Esqueceu sua senha?
-                  </a>
+                  </button>
                 </div>
                 <div className="text-center">
                   <span className="text-sm text-muted-foreground">
@@ -704,12 +764,12 @@ const Login = () => {
                 )}
                 
                 <div className="text-center">
-                  <a 
-                    href="#" 
+                  <button 
+                    onClick={() => setMode("reset")}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     Esqueceu sua senha?
-                  </a>
+                  </button>
                 </div>
                 <div className="text-center">
                   <span className="text-sm text-muted-foreground">
@@ -724,6 +784,7 @@ const Login = () => {
                 </div>
               </TabsContent>
             </Tabs>
+            )}
           </CardContent>
         </Card>
       </div>
