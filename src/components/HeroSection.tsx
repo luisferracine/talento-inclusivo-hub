@@ -37,9 +37,9 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Button 
-              variant="hero" 
+              variant="default" 
               size="hero"
-              className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0"
+              className="w-full sm:w-auto"
               aria-label="Cadastrar currículo como pessoa com deficiência"
             >
               <Users className="w-5 h-5" />
@@ -48,9 +48,9 @@ const HeroSection = () => {
             </Button>
             
             <Button 
-              variant="hero" 
+              variant="secondary" 
               size="hero"
-              className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0"
+              className="w-full sm:w-auto"
               aria-label="Cadastrar empresa para buscar talentos"
             >
               <Building2 className="w-5 h-5" />
