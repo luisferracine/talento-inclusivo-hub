@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,8 +20,11 @@ import {
   XCircle,
   AlertCircle
 } from "lucide-react";
+import { ProfileEditModal } from "@/components/ProfileEditModal";
 
 const DashboardPcd = () => {
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  
   // Mock data
   const perfilResumo = {
     nome: "Ana Silva",
@@ -162,7 +166,11 @@ const DashboardPcd = () => {
                     <span>{perfilResumo.nivelExperiencia}</span>
                   </div>
                 </div>
-                <Button variant="outline" className="w-full gap-2">
+                <Button 
+                  variant="outline" 
+                  className="w-full gap-2"
+                  onClick={() => setIsProfileModalOpen(true)}
+                >
                   <Edit className="w-4 h-4" />
                   Editar Perfil
                 </Button>
@@ -324,6 +332,11 @@ const DashboardPcd = () => {
           </main>
         </div>
       </div>
+
+      <ProfileEditModal 
+        open={isProfileModalOpen}
+        onOpenChange={setIsProfileModalOpen}
+      />
     </div>
   );
 };
