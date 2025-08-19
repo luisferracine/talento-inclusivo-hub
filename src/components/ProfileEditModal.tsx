@@ -89,6 +89,7 @@ interface ProfileEditModalProps {
 export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) {
   const [profileImage, setProfileImage] = useState<string>("/placeholder-avatar.jpg");
   const [laudoPcd, setLaudoPcd] = useState<File | null>(null);
+  const [curriculoVitae, setCurriculoVitae] = useState<File | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const { toast } = useToast();
@@ -132,6 +133,17 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
       setLaudoPcd(file);
       toast({
         title: "Laudo PCD carregado",
+        description: `Arquivo ${file.name} foi carregado com sucesso.`,
+      });
+    }
+  };
+
+  const handleCurriculoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setCurriculoVitae(file);
+      toast({
+        title: "Currículo carregado",
         description: `Arquivo ${file.name} foi carregado com sucesso.`,
       });
     }
@@ -593,11 +605,65 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
               </TabsContent>
 
               <TabsContent value="documents" className="space-y-6">
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">Upload de Laudo PCD</h3>
-                  <p className="text-muted-foreground">
-                    Faça upload do seu laudo médico para validar sua condição PCD.
-                  </p>
+                <div className="space-y-6">
+                  {/* Upload de Currículo */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">Currículo Vitae</h3>
+                    <p className="text-muted-foreground">
+                      Faça upload do seu currículo para que as empresas possam conhecer melhor seu perfil profissional.
+                    </p>
+
+                    <div className="border-2 border-dashed border-muted rounded-lg p-6">
+                      <div className="text-center space-y-4">
+                        <Upload className="w-12 h-12 text-muted-foreground mx-auto" />
+                        <div>
+                          <h4 className="text-lg font-medium">Upload de Currículo</h4>
+                          <p className="text-muted-foreground">
+                            Arraste o arquivo aqui ou clique para selecionar
+                          </p>
+                        </div>
+                        
+                        <input
+                          type="file"
+                          accept=".pdf,.doc,.docx"
+                          onChange={handleCurriculoUpload}
+                          className="hidden"
+                          id="curriculo-upload"
+                        />
+                        
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => document.getElementById('curriculo-upload')?.click()}
+                          className="gap-2"
+                        >
+                          <Upload className="w-4 h-4" />
+                          Selecionar Currículo
+                        </Button>
+                        
+                        <p className="text-sm text-muted-foreground">
+                          Formatos aceitos: PDF, DOC, DOCX (máx. 5MB)
+                        </p>
+
+                        {curriculoVitae && (
+                          <div className="mt-4 p-3 bg-muted rounded-lg">
+                            <div className="flex items-center gap-2">
+                              <FileText className="w-4 h-4" />
+                              <span className="text-sm font-medium">{curriculoVitae.name}</span>
+                              <Badge variant="secondary">Carregado</Badge>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Upload de Laudo PCD */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">Laudo PCD</h3>
+                    <p className="text-muted-foreground">
+                      Faça upload do seu laudo médico para validar sua condição PCD.
+                    </p>
 
                   <div className="border-2 border-dashed border-muted rounded-lg p-6">
                     <div className="text-center space-y-4">
@@ -644,7 +710,7 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
                   </div>
 
                   <div className="bg-muted/50 rounded-lg p-4">
-                    <h4 className="font-medium mb-2">Informações Importantes:</h4>
+                    <h4 className="font-medium mb-2">Informações Importantes sobre o Laudo:</h4>
                     <ul className="text-sm text-muted-foreground space-y-1">
                       <li>• O laudo deve ser emitido por profissional habilitado</li>
                       <li>• Documento deve estar legível e completo</li>
@@ -652,6 +718,17 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
                       <li>• Seus dados serão mantidos em total sigilo</li>
                     </ul>
                   </div>
+
+                  <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-4">
+                    <h4 className="font-medium mb-2 text-blue-900 dark:text-blue-100">Dicas para seu Currículo:</h4>
+                    <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+                      <li>• Mantenha as informações atualizadas</li>
+                      <li>• Destaque suas principais competências</li>
+                      <li>• Inclua experiências relevantes para vagas PCD</li>
+                      <li>• Use formato PDF para melhor compatibilidade</li>
+                    </ul>
+                   </div>
+                 </div>
                 </div>
               </TabsContent>
             </Tabs>
