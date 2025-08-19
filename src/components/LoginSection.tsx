@@ -69,8 +69,8 @@ const LoginSection = () => {
               </div>
 
               <Button 
-                className="w-full h-12" 
-                variant="default"
+                className="w-full h-12 bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" 
+                variant="hero"
                 aria-label="Entrar na área PCD"
               >
                 Entrar
@@ -150,8 +150,8 @@ const LoginSection = () => {
               </div>
 
               <Button 
-                className="w-full h-12" 
-                variant="secondary"
+                className="w-full h-12 bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" 
+                variant="hero"
                 aria-label="Entrar na área empresarial"
               >
                 Entrar
