@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { CriarVagaModal } from "@/components/CriarVagaModal";
 import { 
   Plus, 
   Search, 
@@ -17,6 +19,8 @@ import {
 } from "lucide-react";
 
 const DashboardEmpresa = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   // Mock data
   const metrics = {
     totalVagas: 12,
@@ -61,7 +65,11 @@ const DashboardEmpresa = () => {
               <h1 className="text-2xl font-bold text-foreground">Dashboard Empresa</h1>
               <p className="text-muted-foreground">Gerencie suas vagas e candidatos</p>
             </div>
-            <Button variant="default" className="gap-2">
+            <Button 
+              variant="default" 
+              className="gap-2"
+              onClick={() => setIsModalOpen(true)}
+            >
               <Plus className="w-4 h-4" />
               Criar Vaga
             </Button>
@@ -214,6 +222,11 @@ const DashboardEmpresa = () => {
           </CardContent>
         </Card>
       </main>
+
+      <CriarVagaModal 
+        open={isModalOpen} 
+        onOpenChange={setIsModalOpen}
+      />
     </div>
   );
 };
