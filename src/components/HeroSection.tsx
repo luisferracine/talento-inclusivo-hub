@@ -48,9 +48,9 @@ const HeroSection = () => {
             </Button>
             
             <Button 
-              variant="outline" 
+              variant="secondary" 
               size="hero"
-              className="w-full sm:w-auto bg-secondary text-secondary-foreground hover:bg-secondary/90"
+              className="w-full sm:w-auto"
               aria-label="Cadastrar empresa para buscar talentos"
             >
               <Building2 className="w-5 h-5" />
