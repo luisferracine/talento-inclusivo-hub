@@ -4,8 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Users, Building2, Mail, Lock, ArrowRight, UserPlus, PlusCircle } from "lucide-react";
 const LoginSection = () => {
-  return <section id="login" className="py-16 bg-slate-50">
-      <div className="container mx-auto px-4 bg-slate-50">
+  return <section id="login" className="py-16 bg-muted/30">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Acesse sua conta

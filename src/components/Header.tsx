@@ -55,15 +55,15 @@ const Header = () => {
           </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             {/* Colorblind Mode Selector */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               <Label className="text-sm font-medium flex items-center gap-1">
                 <Eye className="w-4 h-4" />
                 <span className="hidden sm:inline">Daltonismo</span>
               </Label>
               <Select value={colorblindType} onValueChange={setColorblindType}>
-                <SelectTrigger className="w-[200px]">
+                <SelectTrigger className="w-[120px] sm:w-[180px] md:w-[200px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -82,10 +82,11 @@ const Header = () => {
               size="sm"
               aria-label="Fazer login"
               asChild
+              className="flex-shrink-0"
             >
               <Link to="/login">
                 <Users className="w-4 h-4" />
-                Login
+                <span className="hidden xs:inline">Login</span>
               </Link>
             </Button>
           </div>
