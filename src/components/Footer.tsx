@@ -1,10 +1,10 @@
-import { Heart, Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Accessibility } from "lucide-react";
+import { Heart, Accessibility } from "lucide-react";
 
 const Footer = () => {
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -19,29 +19,6 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground">
               Transformando o mercado de trabalho através da inclusão e diversidade.
             </p>
-            <div className="flex gap-3">
-              <a 
-                href="#" 
-                className="w-8 h-8 bg-muted rounded-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a 
-                href="#" 
-                className="w-8 h-8 bg-muted rounded-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a 
-                href="#" 
-                className="w-8 h-8 bg-muted rounded-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-            </div>
           </div>
 
           {/* Links rápidos */}
@@ -79,31 +56,13 @@ const Footer = () => {
             </nav>
           </div>
 
-          {/* Contato */}
-          <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Contato</h4>
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">pcdentro@contato.com.br</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">+55 (16) 9 9312-5207</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">São Paulo, SP</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         <hr className="my-8 border-border" />
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2024 PCDentro. Todos os direitos reservados.
+            © 2025 PCDentro. Todos os direitos reservados.
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
