@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -21,16 +23,28 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
-import { Briefcase, MapPin, FileText, Shield, Activity } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Briefcase, MapPin, FileText, Shield, Activity, DollarSign, Calendar as CalendarIcon2 } from "lucide-react";
 
 const formSchema = z.object({
   titulo: z.string().min(1, "Título da vaga é obrigatório"),
   descricao: z.string().min(1, "Descrição é obrigatória").max(60, "Descrição deve ter no máximo 60 caracteres"),
   localTrabalho: z.string().min(1, "Local de trabalho é obrigatório"),
-  requisitosGerais: z.string().min(1, "Requisitos gerais são obrigatórios").max(100, "Requisitos devem ter no máximo 100 caracteres"),
+  salario: z.string().min(1, "Salário é obrigatório"),
+  dataInicio: z.date({
+    required_error: "Data de início é obrigatória",
+  }),
+  dataFinal: z.date({
+    required_error: "Data final é obrigatória",
+  }),
   acessibilidades: z.string().min(1, "Acessibilidades são obrigatórias").max(100, "Acessibilidades devem ter no máximo 100 caracteres"),
   statusAtividade: z.boolean().default(true),
+}).refine((data) => data.dataFinal > data.dataInicio, {
+  message: "Data final deve ser posterior à data de início",
+  path: ["dataFinal"],
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -50,7 +64,9 @@ export function CriarVagaModal({ open, onOpenChange }: CriarVagaModalProps) {
       titulo: "",
       descricao: "",
       localTrabalho: "",
-      requisitosGerais: "",
+      salario: "",
+      dataInicio: undefined,
+      dataFinal: undefined,
       acessibilidades: "",
       statusAtividade: true,
     },
@@ -164,28 +180,115 @@ export function CriarVagaModal({ open, onOpenChange }: CriarVagaModalProps) {
 
             <FormField
               control={form.control}
-              name="requisitosGerais"
+              name="salario"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="flex items-center gap-2">
-                    <FileText className="w-4 h-4" />
-                    Requisitos Gerais (máx. 100 caracteres)
+                    <DollarSign className="w-4 h-4" />
+                    Salário
                   </FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Requisitos e qualificações necessárias..."
-                      className="min-h-[80px]"
-                      maxLength={100}
+                    <Input
+                      placeholder="Ex: R$ 5.000 - R$ 8.000"
                       {...field}
                     />
                   </FormControl>
-                  <div className="text-xs text-muted-foreground text-right">
-                    {field.value.length}/100 caracteres
-                  </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="dataInicio"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel className="flex items-center gap-2">
+                      <CalendarIcon className="w-4 h-4" />
+                      Data de Início
+                    </FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "dd/MM/yyyy")
+                            ) : (
+                              <span>Selecione uma data</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date < new Date(new Date().setHours(0, 0, 0, 0))
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="dataFinal"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel className="flex items-center gap-2">
+                      <CalendarIcon className="w-4 h-4" />
+                      Data Final
+                    </FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "dd/MM/yyyy")
+                            ) : (
+                              <span>Selecione uma data</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date < new Date(new Date().setHours(0, 0, 0, 0))
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={form.control}

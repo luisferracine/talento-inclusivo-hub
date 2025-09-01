@@ -14,7 +14,8 @@ import {
   Users,
   Briefcase,
   CheckCircle,
-  Clock
+  Clock,
+  DollarSign
 } from "lucide-react";
 import { Vaga } from "@/components/EditarVagaModal";
 
@@ -31,8 +32,10 @@ export const VisualizarVagaModal = ({
 }: VisualizarVagaModalProps) => {
   if (!vaga) return null;
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('pt-BR', {
+  const formatDate = (dateString: string | Date | undefined) => {
+    if (!dateString) return "Não informado";
+    const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
+    return date.toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric'
@@ -89,6 +92,29 @@ export const VisualizarVagaModal = ({
                   <Badge variant="outline">{vaga.tipo}</Badge>
                 </div>
               </div>
+              
+              {/* Salário e Datas */}
+              <div className="space-y-3 pt-4 border-t">
+                {vaga.salario && (
+                  <div className="flex items-center gap-2 text-sm">
+                    <DollarSign className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Salário:</span>
+                    <span className="text-primary font-semibold">{vaga.salario}</span>
+                  </div>
+                )}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center gap-2 text-sm">
+                    <Calendar className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Início:</span>
+                    <span>{formatDate(vaga.dataInicio)}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <Calendar className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Final:</span>
+                    <span>{formatDate(vaga.dataFinal)}</span>
+                  </div>
+                </div>
+              </div>
             </CardContent>
           </Card>
 
@@ -106,22 +132,6 @@ export const VisualizarVagaModal = ({
             </Card>
           )}
 
-          {/* Requisitos */}
-          {vaga.requisitos && (
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4" />
-                  Requisitos
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
-                  {vaga.requisitos}
-                </p>
-              </CardContent>
-            </Card>
-          )}
 
           {/* Acessibilidade */}
           {vaga.acessibilidade && (

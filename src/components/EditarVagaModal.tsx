@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -20,18 +22,31 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
+import { DollarSign } from "lucide-react";
 
 const formSchema = z.object({
   titulo: z.string().min(5, "O título deve ter pelo menos 5 caracteres"),
   descricao: z.string().min(20, "A descrição deve ter pelo menos 20 caracteres"),
   localizacao: z.string().min(2, "Localização é obrigatória"),
-  requisitos: z.string().min(10, "Os requisitos devem ter pelo menos 10 caracteres"),
+  salario: z.string().min(1, "Salário é obrigatório"),
+  dataInicio: z.date({
+    required_error: "Data de início é obrigatória",
+  }),
+  dataFinal: z.date({
+    required_error: "Data final é obrigatória",
+  }),
   acessibilidade: z.string().optional(),
   ativo: z.boolean().default(true),
+}).refine((data) => data.dataFinal > data.dataInicio, {
+  message: "Data final deve ser posterior à data de início",
+  path: ["dataFinal"],
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -41,6 +56,9 @@ export interface Vaga {
   titulo: string;
   descricao?: string;
   localizacao?: string;
+  salario?: string;
+  dataInicio?: Date;
+  dataFinal?: Date;
   requisitos?: string;
   acessibilidade?: string;
   status: string;
@@ -70,7 +88,9 @@ export const EditarVagaModal = ({
       titulo: "",
       descricao: "",
       localizacao: "",
-      requisitos: "",
+      salario: "",
+      dataInicio: undefined,
+      dataFinal: undefined,
       acessibilidade: "",
       ativo: true,
     },
@@ -83,7 +103,9 @@ export const EditarVagaModal = ({
         titulo: vaga.titulo,
         descricao: vaga.descricao || "",
         localizacao: vaga.localizacao || "",
-        requisitos: vaga.requisitos || "",
+        salario: vaga.salario || "",
+        dataInicio: vaga.dataInicio,
+        dataFinal: vaga.dataFinal,
         acessibilidade: vaga.acessibilidade || "",
         ativo: vaga.status === "Ativa",
       });
@@ -104,7 +126,9 @@ export const EditarVagaModal = ({
         titulo: data.titulo,
         descricao: data.descricao,
         localizacao: data.localizacao,
-        requisitos: data.requisitos,
+        salario: data.salario,
+        dataInicio: data.dataInicio,
+        dataFinal: data.dataFinal,
         acessibilidade: data.acessibilidade,
         status: data.ativo ? "Ativa" : "Pausada",
       };
@@ -181,21 +205,103 @@ export const EditarVagaModal = ({
             
             <FormField
               control={form.control}
-              name="requisitos"
+              name="salario"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Requisitos</FormLabel>
+                  <FormLabel>Salário</FormLabel>
                   <FormControl>
-                    <Textarea 
-                      placeholder="Liste os requisitos necessários para a vaga..."
-                      className="min-h-[80px]"
-                      {...field}
-                    />
+                    <Input placeholder="Ex: R$ 5.000 - R$ 8.000" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+            
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="dataInicio"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Data de Início</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "dd/MM/yyyy")
+                            ) : (
+                              <span>Selecione uma data</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date < new Date(new Date().setHours(0, 0, 0, 0))
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="dataFinal"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Data Final</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "dd/MM/yyyy")
+                            ) : (
+                              <span>Selecione uma data</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date < new Date(new Date().setHours(0, 0, 0, 0))
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             
             <FormField
               control={form.control}
