@@ -9,17 +9,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary-hover shadow-soft hover:shadow-hover",
+        default: "bg-primary/90 text-primary-foreground hover:bg-primary/80 shadow-soft hover:shadow-hover",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+          "bg-destructive/90 text-destructive-foreground hover:bg-destructive/80",
         outline:
           "border border-border bg-transparent text-foreground hover:bg-muted hover:text-foreground",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary-hover shadow-soft hover:shadow-hover",
+          "bg-secondary/90 text-secondary-foreground hover:bg-secondary/80 shadow-soft hover:shadow-hover",
         ghost: "text-muted-foreground hover:text-foreground bg-transparent hover:bg-muted",
-        link: "bg-primary text-primary-foreground hover:bg-primary-hover shadow-soft hover:shadow-hover underline-offset-4 hover:underline",
-        hero: "bg-primary text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 hover:bg-primary-hover transition-all duration-300",
-        inclusive: "bg-secondary text-secondary-foreground hover:bg-secondary-hover border-2 border-primary hover:border-secondary font-semibold shadow-soft hover:shadow-hover",
+        link: "bg-primary/90 text-primary-foreground hover:bg-primary/80 shadow-soft hover:shadow-hover underline-offset-4 hover:underline",
+        hero: "bg-primary/90 text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 hover:bg-primary/80 transition-all duration-300",
+        inclusive: "bg-secondary/90 text-secondary-foreground hover:bg-secondary/80 border-2 border-primary hover:border-secondary font-semibold shadow-soft hover:shadow-hover",
       },
       size: {
         default: "h-12 px-6 py-3",
