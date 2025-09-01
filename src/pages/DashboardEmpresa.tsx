@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { CriarVagaModal } from "@/components/CriarVagaModal";
+import { EditarVagaModal, Vaga } from "@/components/EditarVagaModal";
 import { 
   Plus, 
   Search, 
@@ -20,6 +21,8 @@ import {
 
 const DashboardEmpresa = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedVaga, setSelectedVaga] = useState<Vaga | null>(null);
   
   // Mock data
   const metrics = {
@@ -29,10 +32,14 @@ const DashboardEmpresa = () => {
     novasCandidaturas: 23
   };
 
-  const vagas = [
+  const [vagas, setVagas] = useState<Vaga[]>([
     {
       id: 1,
       titulo: "Desenvolvedor Frontend",
+      descricao: "Desenvolvimento de interfaces web modernas e responsivas",
+      localizacao: "São Paulo, SP",
+      requisitos: "React, TypeScript, Tailwind CSS",
+      acessibilidade: "Suporte para leitores de tela",
       status: "Ativa",
       candidatos: 15,
       dataPublicacao: "2024-01-10",
@@ -41,6 +48,10 @@ const DashboardEmpresa = () => {
     {
       id: 2,
       titulo: "Analista de Dados",
+      descricao: "Análise de dados para tomada de decisões estratégicas",
+      localizacao: "Remoto",
+      requisitos: "Python, SQL, Power BI",
+      acessibilidade: "Ferramentas de análise acessíveis",
       status: "Ativa",
       candidatos: 8,
       dataPublicacao: "2024-01-08",
@@ -49,12 +60,25 @@ const DashboardEmpresa = () => {
     {
       id: 3,
       titulo: "Designer UX/UI",
+      descricao: "Criação de experiências digitais inclusivas",
+      localizacao: "Rio de Janeiro, RJ",
+      requisitos: "Figma, Adobe XD, Design System",
+      acessibilidade: "Design inclusivo e acessível",
       status: "Pausada",
       candidatos: 22,
       dataPublicacao: "2024-01-05",
       tipo: "CLT"
     }
-  ];
+  ]);
+
+  const handleEditVaga = (vaga: Vaga) => {
+    setSelectedVaga(vaga);
+    setIsEditModalOpen(true);
+  };
+
+  const handleSaveVaga = (vagaAtualizada: Vaga) => {
+    setVagas(vagas.map(v => v.id === vagaAtualizada.id ? vagaAtualizada : v));
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -183,7 +207,12 @@ const DashboardEmpresa = () => {
                         <Button variant="ghost" size="icon" title="Visualizar candidatos">
                           <Eye className="w-4 h-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" title="Editar vaga">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          title="Editar vaga"
+                          onClick={() => handleEditVaga(vaga)}
+                        >
                           <Edit className="w-4 h-4" />
                         </Button>
                         <Button variant="ghost" size="icon" title="Arquivar vaga">
@@ -226,6 +255,13 @@ const DashboardEmpresa = () => {
       <CriarVagaModal 
         open={isModalOpen} 
         onOpenChange={setIsModalOpen}
+      />
+      
+      <EditarVagaModal 
+        open={isEditModalOpen}
+        onOpenChange={setIsEditModalOpen}
+        vaga={selectedVaga}
+        onSave={handleSaveVaga}
       />
     </div>
   );
