@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { CriarVagaModal } from "@/components/CriarVagaModal";
 import { EditarVagaModal, Vaga } from "@/components/EditarVagaModal";
+import { VisualizarVagaModal } from "@/components/VisualizarVagaModal";
 import { 
   Plus, 
   Search, 
@@ -22,6 +23,7 @@ import {
 const DashboardEmpresa = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [selectedVaga, setSelectedVaga] = useState<Vaga | null>(null);
   
   // Mock data
@@ -74,6 +76,11 @@ const DashboardEmpresa = () => {
   const handleEditVaga = (vaga: Vaga) => {
     setSelectedVaga(vaga);
     setIsEditModalOpen(true);
+  };
+
+  const handleViewVaga = (vaga: Vaga) => {
+    setSelectedVaga(vaga);
+    setIsViewModalOpen(true);
   };
 
   const handleSaveVaga = (vagaAtualizada: Vaga) => {
@@ -204,7 +211,12 @@ const DashboardEmpresa = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="icon" title="Visualizar candidatos">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          title="Visualizar vaga"
+                          onClick={() => handleViewVaga(vaga)}
+                        >
                           <Eye className="w-4 h-4" />
                         </Button>
                         <Button 
@@ -262,6 +274,12 @@ const DashboardEmpresa = () => {
         onOpenChange={setIsEditModalOpen}
         vaga={selectedVaga}
         onSave={handleSaveVaga}
+      />
+      
+      <VisualizarVagaModal 
+        open={isViewModalOpen}
+        onOpenChange={setIsViewModalOpen}
+        vaga={selectedVaga}
       />
     </div>
   );
