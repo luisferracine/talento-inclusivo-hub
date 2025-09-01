@@ -74,25 +74,6 @@ const AboutSection = () => {
               </p>
             </div>
           </div>
-
-          <div className="flex justify-center">
-            <div className="max-w-2xl">
-              <div className="bg-card p-10 rounded-3xl shadow-card border border-border hover:shadow-hover transition-all duration-300">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Accessibility className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
-                    Conectando Talentos
-                  </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    Uma plataforma dedicada a criar oportunidades igualitárias e promover 
-                    a diversidade no mercado de trabalho brasileiro.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Features grid */}
