@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { format } from "date-fns";
-import { CalendarIcon, Upload, User, Shield, FileText, Settings, Camera, Eye, EyeOff } from "lucide-react";
+import { CalendarIcon, Upload, User, Shield, FileText, Settings, Eye, EyeOff } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -53,10 +53,6 @@ const profileSchema = z.object({
   
   // Dados adicionais
   endereco: z.string().optional(),
-  biografia: z.string().max(500, "Biografia deve ter no máximo 500 caracteres").optional(),
-  linkedinUrl: z.string().url("URL inválida").optional().or(z.literal("")),
-  githubUrl: z.string().url("URL inválida").optional().or(z.literal("")),
-  websiteUrl: z.string().url("URL inválida").optional().or(z.literal("")),
   
   // Acessibilidade
   fontesGrandes: z.boolean().default(false),
@@ -87,7 +83,6 @@ interface ProfileEditModalProps {
 }
 
 export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) {
-  const [profileImage, setProfileImage] = useState<string>("/placeholder-avatar.jpg");
   const [laudoPcd, setLaudoPcd] = useState<File | null>(null);
   const [curriculoVitae, setCurriculoVitae] = useState<File | null>(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -102,10 +97,6 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
       telefone: "(11) 99999-9999",
       dataNascimento: new Date("1990-01-01"),
       endereco: "São Paulo, SP",
-      biografia: "",
-      linkedinUrl: "",
-      githubUrl: "",
-      websiteUrl: "",
       fontesGrandes: false,
       modoDaltonismo: false,
       leitorTelaOtimizado: false,
@@ -116,16 +107,6 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
     },
   });
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setProfileImage(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const handleLaudoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -191,37 +172,6 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
               </TabsList>
 
               <TabsContent value="personal" className="space-y-6">
-                {/* Foto de Perfil */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">Foto de Perfil</h3>
-                  <div className="flex items-center gap-4">
-                    <Avatar className="w-20 h-20">
-                      <AvatarImage src={profileImage} alt="Foto de perfil" />
-                      <AvatarFallback>AS</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        className="hidden"
-                        id="profile-image"
-                      />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => document.getElementById('profile-image')?.click()}
-                        className="gap-2"
-                      >
-                        <Camera className="w-4 h-4" />
-                        Alterar Foto
-                      </Button>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        Formatos aceitos: JPG, PNG (máx. 5MB)
-                      </p>
-                    </div>
-                  </div>
-                </div>
 
                 {/* Informações Pessoais */}
                 <div className="space-y-4">
@@ -335,73 +285,6 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
                     )}
                   />
 
-                  <FormField
-                    control={form.control}
-                    name="biografia"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Biografia (Opcional)</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            {...field}
-                            placeholder="Conte um pouco sobre você, suas experiências e objetivos profissionais..."
-                            className="min-h-[100px]"
-                          />
-                        </FormControl>
-                        <FormDescription>
-                          {field.value?.length || 0}/500 caracteres
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="space-y-4">
-                    <h4 className="text-md font-medium">Links (Opcional)</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="linkedinUrl"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>LinkedIn</FormLabel>
-                            <FormControl>
-                              <Input {...field} placeholder="https://linkedin.com/in/..." />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        control={form.control}
-                        name="githubUrl"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>GitHub</FormLabel>
-                            <FormControl>
-                              <Input {...field} placeholder="https://github.com/..." />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        control={form.control}
-                        name="websiteUrl"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Site Pessoal</FormLabel>
-                            <FormControl>
-                              <Input {...field} placeholder="https://seusite.com" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
                 </div>
               </TabsContent>
 

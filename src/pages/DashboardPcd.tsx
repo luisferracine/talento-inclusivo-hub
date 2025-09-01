@@ -16,9 +16,6 @@ import {
   Star,
   Building,
   Calendar,
-  CheckCircle,
-  XCircle,
-  AlertCircle
 } from "lucide-react";
 import { ProfileEditModal } from "@/components/ProfileEditModal";
 
@@ -75,38 +72,22 @@ const DashboardPcd = () => {
       id: 1,
       vaga: "UX Designer",
       empresa: "DesignCo",
-      status: "Em análise",
-      dataAplicacao: "2024-01-15",
-      statusColor: "default"
+      dataAplicacao: "2024-01-15"
     },
     {
       id: 2,
       vaga: "Frontend Developer",
       empresa: "WebSolutions",
-      status: "Aprovado",
-      dataAplicacao: "2024-01-10",
-      statusColor: "success"
+      dataAplicacao: "2024-01-10"
     },
     {
       id: 3,
       vaga: "Desenvolvedor React",
       empresa: "TechStart",
-      status: "Rejeitado",
-      dataAplicacao: "2024-01-05",
-      statusColor: "destructive"
+      dataAplicacao: "2024-01-05"
     }
   ];
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "Aprovado":
-        return <CheckCircle className="w-4 h-4 text-green-500" />;
-      case "Rejeitado":
-        return <XCircle className="w-4 h-4 text-red-500" />;
-      default:
-        return <AlertCircle className="w-4 h-4 text-yellow-500" />;
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -234,60 +215,6 @@ const DashboardPcd = () => {
               </CardContent>
             </Card>
 
-            {/* Vagas Recomendadas */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Star className="w-5 h-5" />
-                  Vagas Recomendadas para Você
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {vagasRecomendadas.map((vaga) => (
-                  <div key={vaga.id} className="border rounded-lg p-4 hover:bg-muted/50 transition-colors">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <h3 className="font-semibold text-foreground">{vaga.titulo}</h3>
-                          <Badge variant="secondary" className="text-xs">
-                            {vaga.match}% match
-                          </Badge>
-                          {vaga.favorita && (
-                            <Heart className="w-4 h-4 fill-red-500 text-red-500" />
-                          )}
-                        </div>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
-                          <div className="flex items-center gap-1">
-                            <Building className="w-4 h-4" />
-                            {vaga.empresa}
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            {vaga.localizacao}
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
-                            {vaga.publicadoEm}
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-4 text-sm">
-                          <span className="font-medium text-primary">{vaga.salario}</span>
-                          <Badge variant="outline">{vaga.tipo}</Badge>
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <Button variant="outline" size="sm">
-                          <Heart className="w-4 h-4" />
-                        </Button>
-                        <Button variant="default" size="sm">
-                          Candidatar-se
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
 
             {/* Histórico de Candidaturas */}
             <Card>
@@ -306,20 +233,11 @@ const DashboardPcd = () => {
                 <div className="space-y-3">
                   {historicoCandidaturas.map((candidatura) => (
                     <div key={candidatura.id} className="flex items-center justify-between p-3 border rounded-lg">
-                      <div className="flex items-center gap-3">
-                        {getStatusIcon(candidatura.status)}
-                        <div>
-                          <p className="font-medium text-foreground">{candidatura.vaga}</p>
-                          <p className="text-sm text-muted-foreground">{candidatura.empresa}</p>
-                        </div>
+                      <div>
+                        <p className="font-medium text-foreground">{candidatura.vaga}</p>
+                        <p className="text-sm text-muted-foreground">{candidatura.empresa}</p>
                       </div>
                       <div className="text-right">
-                        <Badge 
-                          variant={candidatura.statusColor as any}
-                          className="mb-1"
-                        >
-                          {candidatura.status}
-                        </Badge>
                         <p className="text-xs text-muted-foreground">
                           {new Date(candidatura.dataAplicacao).toLocaleDateString('pt-BR')}
                         </p>
