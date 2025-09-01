@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
 interface AccessibilitySettings {
-  fontesGrandes: number; // Porcentagem de 100 a 200
+  fontesGrandes: number; // Porcentagem de 100 a 150
   modoDaltonismo: "nenhum" | "protanopia" | "deuteranopia" | "tritanopia" | "protanomalia" | "deuteranomalia" | "tritanomalia";
 }
 

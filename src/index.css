@@ -280,11 +280,11 @@ Todas as cores em HSL para máxima compatibilidade
 
 /* Accessibility Styles */
 .accessibility-large-fonts {
-  font-size: calc(1rem * var(--font-scale, 1));
+  --font-scale: var(--font-scale, 1);
 }
 
-.accessibility-large-fonts * {
-  font-size: calc(1em * var(--font-scale, 1)) !important;
+.accessibility-large-fonts .text-xs {
+  font-size: calc(0.75rem * var(--font-scale, 1)) !important;
 }
 
 .accessibility-large-fonts .text-sm {
@@ -313,4 +313,12 @@ Todas as cores em HSL para máxima compatibilidade
 
 .accessibility-large-fonts .text-4xl {
   font-size: calc(2.25rem * var(--font-scale, 1)) !important;
+}
+
+/* Aplicar escala também em elementos de formulário e botões */
+.accessibility-large-fonts input,
+.accessibility-large-fonts button,
+.accessibility-large-fonts select,
+.accessibility-large-fonts textarea {
+  font-size: calc(0.875rem * var(--font-scale, 1)) !important;
 }

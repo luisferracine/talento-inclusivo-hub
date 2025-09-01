@@ -58,7 +58,7 @@ const profileSchema = z.object({
   endereco: z.string().optional(),
   
   // Acessibilidade
-  fontesGrandes: z.number().min(100).max(200).default(100), // Porcentagem de 100% a 200%
+  fontesGrandes: z.number().min(100).max(150).default(100), // Porcentagem de 100% a 150%
   modoDaltonismo: z.enum(["nenhum", "protanopia", "deuteranopia", "tritanopia", "protanomalia", "deuteranomalia", "tritanomalia"]).default("nenhum"),
   
   // Segurança
@@ -315,8 +315,8 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
                             <div className="px-3">
                               <Slider
                                 min={100}
-                                max={200}
-                                step={10}
+                                max={150}
+                                step={5}
                                 value={[field.value]}
                                 onValueChange={(value) => {
                                   field.onChange(value[0]);
@@ -326,8 +326,8 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
                               />
                               <div className="flex justify-between text-xs text-muted-foreground mt-1">
                                 <span>100%</span>
+                                <span>125%</span>
                                 <span>150%</span>
-                                <span>200%</span>
                               </div>
                             </div>
                           </FormControl>
