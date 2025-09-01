@@ -53,12 +53,8 @@ const AboutSection = () => {
         {/* Features grid */}
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-              Como fazemos a diferença
-            </h3>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Conheça as principais funcionalidades e valores que tornam nossa plataforma única
-            </p>
+            
+            
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
