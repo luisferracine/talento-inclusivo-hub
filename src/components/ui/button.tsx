@@ -9,17 +9,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gradient-primary text-white hover:bg-gradient-hover shadow-soft hover:shadow-hover",
+        default: "bg-primary text-primary-foreground hover:bg-primary-hover shadow-soft hover:shadow-hover",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
           "border border-border bg-transparent text-foreground hover:bg-muted hover:text-foreground",
         secondary:
-          "bg-gradient-hero text-white hover:bg-gradient-accent shadow-soft hover:shadow-hover",
+          "bg-secondary text-secondary-foreground hover:bg-secondary-hover shadow-soft hover:shadow-hover",
         ghost: "text-muted-foreground hover:text-foreground bg-transparent hover:bg-muted",
-        link: "bg-gradient-primary text-white hover:bg-gradient-hover shadow-soft hover:shadow-hover underline-offset-4 hover:underline",
-        hero: "bg-gradient-primary text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 hover:bg-gradient-hover transition-all duration-300",
-        inclusive: "bg-gradient-hero text-white hover:bg-gradient-accent border-2 border-primary hover:border-secondary font-semibold shadow-soft hover:shadow-hover",
+        link: "bg-primary text-primary-foreground hover:bg-primary-hover shadow-soft hover:shadow-hover underline-offset-4 hover:underline",
+        hero: "bg-primary text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 hover:bg-primary-hover transition-all duration-300",
+        inclusive: "bg-secondary text-secondary-foreground hover:bg-secondary-hover border-2 border-primary hover:border-secondary font-semibold shadow-soft hover:shadow-hover",
       },
       size: {
         default: "h-12 px-6 py-3",

@@ -69,7 +69,7 @@ const LoginSection = () => {
               </div>
 
               <Button 
-                className="w-full h-12 bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" 
+                className="w-full h-12 text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" 
                 variant="hero"
                 aria-label="Entrar na área PCD"
               >
@@ -150,7 +150,7 @@ const LoginSection = () => {
               </div>
 
               <Button 
-                className="w-full h-12 bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" 
+                className="w-full h-12 text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" 
                 variant="hero"
                 aria-label="Entrar na área empresarial"
               >

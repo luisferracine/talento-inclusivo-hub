@@ -158,7 +158,7 @@ const Login = () => {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" size="lg" variant="hero">
+                    <Button type="submit" className="w-full text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" size="lg" variant="hero">
                       <Mail className="w-4 h-4 mr-2" />
                       Enviar email de redefinição
                     </Button>
@@ -236,7 +236,7 @@ const Login = () => {
                           </FormItem>
                         )}
                       />
-                      <Button type="submit" className="w-full bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" size="lg" variant="hero">
+                      <Button type="submit" className="w-full text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" size="lg" variant="hero">
                         <Users className="w-4 h-4 mr-2" />
                         Entrar como PCD
                       </Button>
@@ -494,7 +494,7 @@ const Login = () => {
                           </FormItem>
                         )}
                       />
-                      <Button type="submit" className="w-full bg-gradient-primary hover:bg-gradient-hover text-white font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" size="lg" variant="hero">
+                      <Button type="submit" className="w-full text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" size="lg" variant="hero">
                         <Building2 className="w-4 h-4 mr-2" />
                         Entrar como Empresa
                       </Button>
