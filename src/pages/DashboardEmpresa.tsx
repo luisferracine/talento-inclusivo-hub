@@ -13,7 +13,6 @@ import {
   Eye, 
   Edit, 
   Archive, 
-  Download, 
   Users, 
   Briefcase, 
   MessageSquare,
@@ -182,10 +181,6 @@ const DashboardEmpresa = () => {
                     className="pl-8 w-64"
                   />
                 </div>
-                <Button variant="outline" size="sm" className="gap-2">
-                  <Download className="w-4 h-4" />
-                  Exportar CSV
-                </Button>
               </div>
             </div>
           </CardHeader>
