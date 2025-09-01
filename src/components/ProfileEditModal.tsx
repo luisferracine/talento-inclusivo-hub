@@ -32,6 +32,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -56,9 +58,8 @@ const profileSchema = z.object({
   endereco: z.string().optional(),
   
   // Acessibilidade
-  fontesGrandes: z.boolean().default(false),
-  modoDaltonismo: z.boolean().default(false),
-  leitorTelaOtimizado: z.boolean().default(false),
+  fontesGrandes: z.number().min(100).max(200).default(100), // Porcentagem de 100% a 200%
+  modoDaltonismo: z.enum(["nenhum", "protanopia", "deuteranopia", "tritanopia", "protanomalia", "deuteranomalia", "tritanomalia"]).default("nenhum"),
   
   // Segurança
   senhaAtual: z.string().optional(),
@@ -101,7 +102,6 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
       endereco: "São Paulo, SP",
       fontesGrandes: accessibilitySettings.fontesGrandes,
       modoDaltonismo: accessibilitySettings.modoDaltonismo,
-      leitorTelaOtimizado: accessibilitySettings.leitorTelaOtimizado,
       senhaAtual: "",
       novaSenha: "",
       confirmarSenha: "",
@@ -302,24 +302,36 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
                       control={form.control}
                       name="fontesGrandes"
                       render={({ field }) => (
-                         <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                           <FormControl>
-                             <Checkbox
-                               checked={field.value}
-                               onCheckedChange={(checked) => {
-                                 field.onChange(checked);
-                                 updateAccessibilitySettings({ fontesGrandes: checked as boolean });
-                               }}
-                             />
-                           </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel>
-                              Fontes Grandes
+                        <FormItem className="space-y-4">
+                          <div>
+                            <FormLabel className="text-base font-medium">
+                              Tamanho das Fontes
                             </FormLabel>
                             <FormDescription>
-                              Aumenta o tamanho das fontes em toda a plataforma para melhor legibilidade.
+                              Ajuste o tamanho das fontes de {field.value}% do tamanho padrão.
                             </FormDescription>
                           </div>
+                          <FormControl>
+                            <div className="px-3">
+                              <Slider
+                                min={100}
+                                max={200}
+                                step={10}
+                                value={[field.value]}
+                                onValueChange={(value) => {
+                                  field.onChange(value[0]);
+                                  updateAccessibilitySettings({ fontesGrandes: value[0] });
+                                }}
+                                className="w-full"
+                              />
+                              <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                                <span>100%</span>
+                                <span>150%</span>
+                                <span>200%</span>
+                              </div>
+                            </div>
+                          </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -328,50 +340,31 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
                       control={form.control}
                       name="modoDaltonismo"
                       render={({ field }) => (
-                         <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                           <FormControl>
-                             <Checkbox
-                               checked={field.value}
-                               onCheckedChange={(checked) => {
-                                 field.onChange(checked);
-                                 updateAccessibilitySettings({ modoDaltonismo: checked as boolean });
-                               }}
-                             />
-                           </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel>
-                              Modo Daltonismo
-                            </FormLabel>
-                            <FormDescription>
-                              Ajusta as cores da interface para pessoas com daltonismo.
-                            </FormDescription>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="leitorTelaOtimizado"
-                      render={({ field }) => (
-                         <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                           <FormControl>
-                             <Checkbox
-                               checked={field.value}
-                               onCheckedChange={(checked) => {
-                                 field.onChange(checked);
-                                 updateAccessibilitySettings({ leitorTelaOtimizado: checked as boolean });
-                               }}
-                             />
-                           </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel>
-                              Leitor de Tela Otimizado
-                            </FormLabel>
-                            <FormDescription>
-                              Otimiza a interface para leitores de tela e tecnologias assistivas.
-                            </FormDescription>
-                          </div>
+                        <FormItem>
+                          <FormLabel className="text-base font-medium">Modo Daltonismo</FormLabel>
+                          <Select onValueChange={(value) => {
+                            field.onChange(value);
+                            updateAccessibilitySettings({ modoDaltonismo: value as any });
+                          }} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Selecione o tipo de daltonismo" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="nenhum">Nenhum (Visão Normal)</SelectItem>
+                              <SelectItem value="protanopia">Protanopia (Dificuldade com Vermelho)</SelectItem>
+                              <SelectItem value="deuteranopia">Deuteranopia (Dificuldade com Verde)</SelectItem>
+                              <SelectItem value="tritanopia">Tritanopia (Dificuldade com Azul)</SelectItem>
+                              <SelectItem value="protanomalia">Protanomalia (Vermelho Reduzido)</SelectItem>
+                              <SelectItem value="deuteranomalia">Deuteranomalia (Verde Reduzido)</SelectItem>
+                              <SelectItem value="tritanomalia">Tritanomalia (Azul Reduzido)</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormDescription>
+                            Ajusta as cores da interface para diferentes tipos de daltonismo.
+                          </FormDescription>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />

@@ -1,9 +1,8 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
 interface AccessibilitySettings {
-  fontesGrandes: boolean;
-  modoDaltonismo: boolean;
-  leitorTelaOtimizado: boolean;
+  fontesGrandes: number; // Porcentagem de 100 a 200
+  modoDaltonismo: "nenhum" | "protanopia" | "deuteranopia" | "tritanopia" | "protanomalia" | "deuteranomalia" | "tritanomalia";
 }
 
 interface AccessibilityContextType {
@@ -19,9 +18,8 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<AccessibilitySettings>(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     return saved ? JSON.parse(saved) : {
-      fontesGrandes: false,
-      modoDaltonismo: false,
-      leitorTelaOtimizado: false,
+      fontesGrandes: 100,
+      modoDaltonismo: "nenhum",
     };
   });
 
@@ -37,27 +35,29 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const root = document.documentElement;
     
-    // Fontes grandes
-    if (settings.fontesGrandes) {
+    // Fontes grandes - aplicar porcentagem
+    const fontScale = settings.fontesGrandes / 100;
+    root.style.setProperty('--font-scale', fontScale.toString());
+    
+    if (settings.fontesGrandes > 100) {
       root.classList.add("accessibility-large-fonts");
     } else {
       root.classList.remove("accessibility-large-fonts");
     }
 
-    // Modo daltonismo
-    if (settings.modoDaltonismo) {
-      root.classList.add("accessibility-colorblind");
-    } else {
-      root.classList.remove("accessibility-colorblind");
-    }
+    // Remover todas as classes de daltonismo anteriores
+    root.classList.remove(
+      "colorblind-protanopia", 
+      "colorblind-deuteranopia", 
+      "colorblind-tritanopia",
+      "colorblind-protanomalia", 
+      "colorblind-deuteranomalia", 
+      "colorblind-tritanomalia"
+    );
 
-    // Leitor de tela otimizado
-    if (settings.leitorTelaOtimizado) {
-      root.classList.add("accessibility-screen-reader");
-      root.setAttribute("data-screen-reader", "true");
-    } else {
-      root.classList.remove("accessibility-screen-reader");
-      root.removeAttribute("data-screen-reader");
+    // Aplicar classe de daltonismo se não for "nenhum"
+    if (settings.modoDaltonismo !== "nenhum") {
+      root.classList.add(`colorblind-${settings.modoDaltonismo}`);
     }
   }, [settings]);
 
