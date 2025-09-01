@@ -3,7 +3,7 @@ import { ArrowRight, Users, Building2, Accessibility } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-background to-accent overflow-hidden">
+    <section className="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10 overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-20 w-20 h-20 bg-primary rounded-full animate-pulse"></div>
