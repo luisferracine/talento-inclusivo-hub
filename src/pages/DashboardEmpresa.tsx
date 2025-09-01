@@ -19,6 +19,7 @@ import {
   MessageSquare,
   TrendingUp
 } from "lucide-react";
+import { toast } from "sonner";
 
 const DashboardEmpresa = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -81,6 +82,18 @@ const DashboardEmpresa = () => {
   const handleViewVaga = (vaga: Vaga) => {
     setSelectedVaga(vaga);
     setIsViewModalOpen(true);
+  };
+
+  const handleArchiveVaga = (vaga: Vaga) => {
+    const vagaArquivada: Vaga = {
+      ...vaga,
+      status: vaga.status === "Arquivada" ? "Ativa" : "Arquivada"
+    };
+    
+    setVagas(vagas.map(v => v.id === vaga.id ? vagaArquivada : v));
+    
+    const action = vagaArquivada.status === "Arquivada" ? "arquivada" : "reativada";
+    toast.success(`Vaga ${action} com sucesso!`);
   };
 
   const handleSaveVaga = (vagaAtualizada: Vaga) => {
@@ -194,7 +207,11 @@ const DashboardEmpresa = () => {
                     <TableCell className="font-medium">{vaga.titulo}</TableCell>
                     <TableCell>
                       <Badge 
-                        variant={vaga.status === "Ativa" ? "default" : "secondary"}
+                        variant={
+                          vaga.status === "Ativa" ? "default" : 
+                          vaga.status === "Pausada" ? "secondary" : 
+                          "destructive"
+                        }
                       >
                         {vaga.status}
                       </Badge>
@@ -227,7 +244,12 @@ const DashboardEmpresa = () => {
                         >
                           <Edit className="w-4 h-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" title="Arquivar vaga">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          title={vaga.status === "Arquivada" ? "Reativar vaga" : "Arquivar vaga"}
+                          onClick={() => handleArchiveVaga(vaga)}
+                        >
                           <Archive className="w-4 h-4" />
                         </Button>
                       </div>
