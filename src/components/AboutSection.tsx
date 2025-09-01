@@ -56,58 +56,76 @@ const AboutSection = () => {
         </div>
 
         {/* Main content */}
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-          <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-foreground">
+        <div className="max-w-6xl mx-auto mb-20">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
               Transformando o mercado de trabalho
             </h3>
-            <p className="text-muted-foreground leading-relaxed">
-              Acreditamos que a diversidade é uma força motriz para a inovação e o crescimento. 
-              Nossa plataforma não apenas conecta candidatos e empresas, mas também educa e 
-              sensibiliza o mercado sobre a importância da inclusão.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Com ferramentas acessíveis e uma interface pensada para todos, garantimos que 
-              cada pessoa tenha a oportunidade de mostrar seu potencial e encontrar um ambiente 
-              de trabalho onde possa prosperar.
-            </p>
+            <div className="max-w-4xl mx-auto space-y-6">
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Acreditamos que a diversidade é uma força motriz para a inovação e o crescimento. 
+                Nossa plataforma não apenas conecta candidatos e empresas, mas também educa e 
+                sensibiliza o mercado sobre a importância da inclusão.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Com ferramentas acessíveis e uma interface pensada para todos, garantimos que 
+                cada pessoa tenha a oportunidade de mostrar seu potencial e encontrar um ambiente 
+                de trabalho onde possa prosperar.
+              </p>
+            </div>
           </div>
 
-          <div className="relative">
-            <div className="bg-card p-8 rounded-2xl shadow-card border border-border">
-              <div className="text-center">
-                <h3 className="text-2xl font-bold text-foreground mb-4">
-                  Conectando Talentos
-                </h3>
-                <p className="text-muted-foreground">
-                  Uma plataforma dedicada a criar oportunidades igualitárias e promover 
-                  a diversidade no mercado de trabalho brasileiro.
-                </p>
+          <div className="flex justify-center">
+            <div className="max-w-2xl">
+              <div className="bg-card p-10 rounded-3xl shadow-card border border-border hover:shadow-hover transition-all duration-300">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <Accessibility className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
+                    Conectando Talentos
+                  </h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Uma plataforma dedicada a criar oportunidades igualitárias e promover 
+                    a diversidade no mercado de trabalho brasileiro.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Features grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <Card 
-              key={index} 
-              className="shadow-card border-border hover:shadow-hover transition-all duration-300 hover:-translate-y-1"
-            >
-              <CardContent className="p-6">
-                <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="font-semibold text-foreground mb-3">
-                  {feature.title}
-                </h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {feature.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+              Como fazemos a diferença
+            </h3>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Conheça as principais funcionalidades e valores que tornam nossa plataforma única
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card 
+                key={index} 
+                className="shadow-card border-border hover:shadow-hover transition-all duration-300 hover:-translate-y-2 group"
+              >
+                <CardContent className="p-8 text-center">
+                  <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-secondary/20 transition-colors">
+                    <feature.icon className="w-8 h-8 text-secondary" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-foreground mb-4">
+                    {feature.title}
+                  </h4>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </section>
