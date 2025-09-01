@@ -10,15 +10,15 @@ const Header = () => {
   return (
     <header className="w-full bg-card shadow-soft border-b border-border">
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <Accessibility className="w-6 h-6 text-white" />
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-lg flex items-center justify-center">
+              <Accessibility className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-foreground">PCDentro</h1>
-              <p className="text-xs text-muted-foreground">Conectando talentos</p>
+            <div className="min-w-0">
+              <h1 className="text-lg sm:text-xl font-bold text-foreground">PCDentro</h1>
+              <p className="text-xs text-muted-foreground hidden sm:block">Conectando talentos</p>
             </div>
           </div>
 
@@ -55,15 +55,15 @@ const Header = () => {
           </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-4">
-            {/* Colorblind Mode Selector */}
-            <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
+            {/* Colorblind Mode Selector - Hidden on very small screens */}
+            <div className="hidden sm:flex items-center gap-2">
               <Label className="text-sm font-medium flex items-center gap-1">
                 <Eye className="w-4 h-4" />
-                <span className="hidden sm:inline">Daltonismo</span>
+                <span className="hidden md:inline">Daltonismo</span>
               </Label>
               <Select value={colorblindType} onValueChange={setColorblindType}>
-                <SelectTrigger className="w-[120px] sm:w-[180px] md:w-[200px]">
+                <SelectTrigger className="w-[140px] md:w-[180px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -82,10 +82,10 @@ const Header = () => {
               size="sm"
               aria-label="Fazer login"
               asChild
-              className="flex-shrink-0"
+              className="flex-shrink-0 min-w-0"
             >
-              <Link to="/login">
-                <Users className="w-4 h-4" />
+              <Link to="/login" className="flex items-center gap-2">
+                <Users className="w-4 h-4 flex-shrink-0" />
                 <span className="hidden xs:inline">Login</span>
               </Link>
             </Button>
