@@ -277,3 +277,90 @@ Todas as cores em HSL para máxima compatibilidade
     @apply bg-background text-foreground;
   }
 }
+
+/* Accessibility Styles */
+.accessibility-large-fonts {
+  --font-size-sm: 0.9375rem; /* was 0.875rem */
+  --font-size-base: 1.125rem; /* was 1rem */
+  --font-size-lg: 1.25rem; /* was 1.125rem */
+  --font-size-xl: 1.5rem; /* was 1.25rem */
+  --font-size-2xl: 1.75rem; /* was 1.5rem */
+  --font-size-3xl: 2.125rem; /* was 1.875rem */
+  --font-size-4xl: 2.5rem; /* was 2.25rem */
+}
+
+.accessibility-large-fonts .text-sm {
+  font-size: var(--font-size-sm);
+}
+
+.accessibility-large-fonts .text-base {
+  font-size: var(--font-size-base);
+}
+
+.accessibility-large-fonts .text-lg {
+  font-size: var(--font-size-lg);
+}
+
+.accessibility-large-fonts .text-xl {
+  font-size: var(--font-size-xl);
+}
+
+.accessibility-large-fonts .text-2xl {
+  font-size: var(--font-size-2xl);
+}
+
+.accessibility-large-fonts .text-3xl {
+  font-size: var(--font-size-3xl);
+}
+
+.accessibility-large-fonts .text-4xl {
+  font-size: var(--font-size-4xl);
+}
+
+/* Modo Daltonismo - Ajusta cores para melhor contraste */
+.accessibility-colorblind {
+  --primary: 208 100% 43%; /* Azul mais saturado */
+  --secondary: 47 100% 50%; /* Amarelo mais vibrante */
+  --destructive: 0 85% 60%; /* Vermelho ajustado */
+  --success: 142 76% 36%; /* Verde mais escuro */
+}
+
+.accessibility-colorblind .text-green-500 {
+  color: hsl(142 76% 36%);
+}
+
+.accessibility-colorblind .text-red-500 {
+  color: hsl(0 85% 60%);
+}
+
+.accessibility-colorblind .text-yellow-500 {
+  color: hsl(47 100% 50%);
+}
+
+/* Leitor de Tela Otimizado - Melhora a navegação por teclado e acessibilidade */
+.accessibility-screen-reader *:focus {
+  outline: 3px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+.accessibility-screen-reader button,
+.accessibility-screen-reader input,
+.accessibility-screen-reader select,
+.accessibility-screen-reader textarea {
+  transition: outline 0.2s ease;
+}
+
+.accessibility-screen-reader [data-state="active"],
+.accessibility-screen-reader [aria-selected="true"] {
+  background-color: hsl(var(--primary) / 0.1);
+  border: 2px solid hsl(var(--primary));
+}
+
+/* Melhora o contraste para modo de alto contraste */
+@media (prefers-contrast: high) {
+  .accessibility-screen-reader {
+    --border: 220 13% 18%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+  }
+}

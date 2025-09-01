@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { format } from "date-fns";
 import { CalendarIcon, Upload, User, Shield, FileText, Settings, Eye, EyeOff } from "lucide-react";
+import { useAccessibility } from "@/hooks/use-accessibility";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -88,6 +89,7 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const { toast } = useToast();
+  const { settings: accessibilitySettings, updateSettings: updateAccessibilitySettings } = useAccessibility();
 
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
@@ -97,9 +99,9 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
       telefone: "(11) 99999-9999",
       dataNascimento: new Date("1990-01-01"),
       endereco: "São Paulo, SP",
-      fontesGrandes: false,
-      modoDaltonismo: false,
-      leitorTelaOtimizado: false,
+      fontesGrandes: accessibilitySettings.fontesGrandes,
+      modoDaltonismo: accessibilitySettings.modoDaltonismo,
+      leitorTelaOtimizado: accessibilitySettings.leitorTelaOtimizado,
       senhaAtual: "",
       novaSenha: "",
       confirmarSenha: "",
@@ -300,13 +302,16 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
                       control={form.control}
                       name="fontesGrandes"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
+                         <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                           <FormControl>
+                             <Checkbox
+                               checked={field.value}
+                               onCheckedChange={(checked) => {
+                                 field.onChange(checked);
+                                 updateAccessibilitySettings({ fontesGrandes: checked as boolean });
+                               }}
+                             />
+                           </FormControl>
                           <div className="space-y-1 leading-none">
                             <FormLabel>
                               Fontes Grandes
@@ -323,13 +328,16 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
                       control={form.control}
                       name="modoDaltonismo"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
+                         <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                           <FormControl>
+                             <Checkbox
+                               checked={field.value}
+                               onCheckedChange={(checked) => {
+                                 field.onChange(checked);
+                                 updateAccessibilitySettings({ modoDaltonismo: checked as boolean });
+                               }}
+                             />
+                           </FormControl>
                           <div className="space-y-1 leading-none">
                             <FormLabel>
                               Modo Daltonismo
@@ -346,13 +354,16 @@ export function ProfileEditModal({ open, onOpenChange }: ProfileEditModalProps) 
                       control={form.control}
                       name="leitorTelaOtimizado"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
+                         <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                           <FormControl>
+                             <Checkbox
+                               checked={field.value}
+                               onCheckedChange={(checked) => {
+                                 field.onChange(checked);
+                                 updateAccessibilitySettings({ leitorTelaOtimizado: checked as boolean });
+                               }}
+                             />
+                           </FormControl>
                           <div className="space-y-1 leading-none">
                             <FormLabel>
                               Leitor de Tela Otimizado
