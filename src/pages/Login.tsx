@@ -494,7 +494,7 @@ const Login = () => {
                           </FormItem>
                         )}
                       />
-                      <Button type="submit" className="w-full text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" size="lg" variant="hero">
+                      <Button type="submit" className="w-full text-secondary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" size="lg" variant="secondary">
                         <Building2 className="w-4 h-4 mr-2" />
                         Entrar como Empresa
                       </Button>

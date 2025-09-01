@@ -66,7 +66,7 @@ const DashboardEmpresa = () => {
               <p className="text-muted-foreground">Gerencie suas vagas e candidatos</p>
             </div>
             <Button 
-              variant="default" 
+              variant="secondary"
               className="gap-2"
               onClick={() => setIsModalOpen(true)}
             >
@@ -215,7 +215,7 @@ const DashboardEmpresa = () => {
               <Button variant="outline">
                 Filtros Avançados
               </Button>
-              <Button variant="default">
+              <Button variant="secondary">
                 Pesquisar
               </Button>
             </div>

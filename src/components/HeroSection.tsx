@@ -22,7 +22,7 @@ const HeroSection = () => {
           {/* Main heading */}
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
             Conectando{" "}
-            <span className="bg-gradient-hero bg-clip-text text-transparent">
+            <span className="text-primary font-bold">
               talentos diversos
             </span>{" "}
             a oportunidades reais

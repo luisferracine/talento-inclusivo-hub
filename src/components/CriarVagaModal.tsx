@@ -248,8 +248,8 @@ export function CriarVagaModal({ open, onOpenChange }: CriarVagaModalProps) {
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
-                variant="hero"
-                className="text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300"
+                variant="secondary"
+                className="text-secondary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300"
               >
                 {isSubmitting ? "Criando..." : "Criar Vaga"}
               </Button>

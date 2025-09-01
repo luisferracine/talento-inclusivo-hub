@@ -6,7 +6,7 @@ import { Users, Building2, Mail, Lock, ArrowRight, UserPlus, PlusCircle } from "
 
 const LoginSection = () => {
   return (
-    <section id="login" className="py-16 bg-gradient-accent">
+    <section id="login" className="py-16 bg-accent">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -150,8 +150,8 @@ const LoginSection = () => {
               </div>
 
               <Button 
-                className="w-full h-12 text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" 
-                variant="hero"
+                className="w-full h-12 text-secondary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" 
+                variant="secondary"
                 aria-label="Entrar na área empresarial"
               >
                 Entrar

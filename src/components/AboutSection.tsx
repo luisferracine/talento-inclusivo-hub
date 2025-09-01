@@ -84,7 +84,7 @@ const AboutSection = () => {
           </div>
 
           <div className="relative">
-            <div className="bg-gradient-card p-8 rounded-2xl shadow-card border border-border">
+            <div className="bg-card p-8 rounded-2xl shadow-card border border-border">
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
@@ -127,7 +127,7 @@ const AboutSection = () => {
               className="shadow-card border-border hover:shadow-hover transition-all duration-300 hover:-translate-y-1"
             >
               <CardContent className="p-6">
-                <div className="w-12 h-12 bg-gradient-hero rounded-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4">
                   <feature.icon className="w-6 h-6 text-white" />
                 </div>
                 <h4 className="font-semibold text-foreground mb-3">
