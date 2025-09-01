@@ -56,7 +56,7 @@ const resetPasswordSchema = z.object({
 const Login = () => {
   const [activeTab, setActiveTab] = useState("pcd");
   const [mode, setMode] = useState<"login" | "signup" | "reset">("login");
-  const { isColorblindMode, toggleColorblindMode } = useColorblindMode();
+  const { colorblindType } = useColorblindMode();
 
   // Forms
   const pcdLoginForm = useForm<z.infer<typeof loginSchema>>({

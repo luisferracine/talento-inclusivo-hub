@@ -1,42 +1,59 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
+export type ColorblindType = 'none' | 'protanopia' | 'deuteranopia' | 'tritanopia' | 'protanomalia' | 'deuteranomalia' | 'tritanomalia';
+
+export const colorblindOptions = [
+  { value: 'none', label: 'Normal' },
+  { value: 'protanopia', label: 'Protanopia (sem vermelho)' },
+  { value: 'deuteranopia', label: 'Deuteranopia (sem verde)' },
+  { value: 'tritanopia', label: 'Tritanopia (sem azul)' },
+  { value: 'protanomalia', label: 'Protanomalia (vermelho reduzido)' },
+  { value: 'deuteranomalia', label: 'Deuteranomalia (verde reduzido)' },
+  { value: 'tritanomalia', label: 'Tritanomalia (azul reduzido)' }
+] as const;
+
 interface ColorblindModeContextType {
-  isColorblindMode: boolean;
-  toggleColorblindMode: () => void;
+  colorblindType: ColorblindType;
+  setColorblindType: (type: ColorblindType) => void;
 }
 
 const ColorblindModeContext = createContext<ColorblindModeContextType | undefined>(undefined);
 
 export function ColorblindModeProvider({ children }: { children: ReactNode }) {
-  const [isColorblindMode, setIsColorblindMode] = useState(false);
+  const [colorblindType, setColorblindTypeState] = useState<ColorblindType>('none');
 
   useEffect(() => {
-    const saved = localStorage.getItem("colorblind-mode");
+    const saved = localStorage.getItem("colorblind-type");
     if (saved) {
-      const savedMode = JSON.parse(saved);
-      setIsColorblindMode(savedMode);
-      updateColorMode(savedMode);
+      const savedType = saved as ColorblindType;
+      setColorblindTypeState(savedType);
+      updateColorMode(savedType);
     }
   }, []);
 
-  const updateColorMode = (enabled: boolean) => {
+  const updateColorMode = (type: ColorblindType) => {
     const root = document.documentElement;
-    if (enabled) {
-      root.classList.add("colorblind-mode");
-    } else {
-      root.classList.remove("colorblind-mode");
+    // Remove all colorblind classes
+    colorblindOptions.forEach(option => {
+      if (option.value !== 'none') {
+        root.classList.remove(`colorblind-${option.value}`);
+      }
+    });
+    
+    // Add the selected colorblind class
+    if (type !== 'none') {
+      root.classList.add(`colorblind-${type}`);
     }
   };
 
-  const toggleColorblindMode = () => {
-    const newMode = !isColorblindMode;
-    setIsColorblindMode(newMode);
-    updateColorMode(newMode);
-    localStorage.setItem("colorblind-mode", JSON.stringify(newMode));
+  const setColorblindType = (type: ColorblindType) => {
+    setColorblindTypeState(type);
+    updateColorMode(type);
+    localStorage.setItem("colorblind-type", type);
   };
 
   return (
-    <ColorblindModeContext.Provider value={{ isColorblindMode, toggleColorblindMode }}>
+    <ColorblindModeContext.Provider value={{ colorblindType, setColorblindType }}>
       {children}
     </ColorblindModeContext.Provider>
   );

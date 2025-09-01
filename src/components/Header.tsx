@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Users, Building2, Accessibility, Eye } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Users, Accessibility, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useColorblindMode } from "@/hooks/use-colorblind-mode";
+import { useColorblindMode, colorblindOptions } from "@/hooks/use-colorblind-mode";
 
 const Header = () => {
-  const { isColorblindMode, toggleColorblindMode } = useColorblindMode();
+  const { colorblindType, setColorblindType } = useColorblindMode();
   return (
     <header className="w-full bg-card shadow-soft border-b border-border">
       <div className="container mx-auto px-4 py-4">
@@ -56,17 +56,24 @@ const Header = () => {
 
           {/* Action Buttons */}
           <div className="flex items-center gap-4">
-            {/* Colorblind Mode Switch */}
+            {/* Colorblind Mode Selector */}
             <div className="flex items-center gap-2">
-              <Label htmlFor="colorblind-mode-header" className="text-sm font-medium flex items-center gap-1">
+              <Label className="text-sm font-medium flex items-center gap-1">
                 <Eye className="w-4 h-4" />
                 <span className="hidden sm:inline">Daltonismo</span>
               </Label>
-              <Switch
-                id="colorblind-mode-header"
-                checked={isColorblindMode}
-                onCheckedChange={toggleColorblindMode}
-              />
+              <Select value={colorblindType} onValueChange={setColorblindType}>
+                <SelectTrigger className="w-[200px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {colorblindOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             
             {/* Login Button */}

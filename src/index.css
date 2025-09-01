@@ -117,54 +117,154 @@ Todas as cores em HSL para máxima compatibilidade
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  /* Modo daltonismo - cores otimizadas para acessibilidade */
-  .colorblind-mode {
-    /* Cores principais - Alto contraste azul e amarelo */
+  /* Protanopia - Dificuldade com vermelho */
+  .colorblind-protanopia {
     --background: 0 0% 100%;
     --foreground: 0 0% 0%;
-
     --card: 0 0% 98%;
     --card-foreground: 0 0% 0%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 0%;
-
-    /* Azul escuro para primary */
-    --primary: 210 100% 40%;
+    --primary: 210 100% 40%; /* Azul forte */
     --primary-foreground: 0 0% 100%;
     --primary-hover: 210 100% 35%;
-
-    /* Amarelo para secondary */
-    --secondary: 45 100% 50%;
+    --secondary: 45 100% 50%; /* Amarelo */
     --secondary-foreground: 0 0% 0%;
     --secondary-hover: 45 100% 45%;
-
-    /* Tons neutros com alto contraste */
     --muted: 0 0% 95%;
     --muted-foreground: 0 0% 25%;
-
     --accent: 210 100% 95%;
     --accent-foreground: 210 100% 20%;
-
-    --destructive: 0 100% 50%;
+    --destructive: 0 0% 30%; /* Cinza escuro ao invés de vermelho */
     --destructive-foreground: 0 0% 100%;
-
-    /* Bordas com contraste forte */
     --border: 0 0% 80%;
     --input: 0 0% 95%;
     --ring: 210 100% 40%;
+  }
 
-    /* Gradientes sem confusão de cores */
-    --gradient-primary: linear-gradient(135deg, hsl(210 100% 40%), hsl(45 100% 50%));
-    --gradient-hover: linear-gradient(135deg, hsl(45 100% 50%), hsl(210 100% 40%));
-    --gradient-hero: linear-gradient(135deg, hsl(210 100% 40%), hsl(45 100% 50%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(0 0% 98%));
-    --gradient-accent: linear-gradient(90deg, hsl(210 100% 90%), hsl(45 100% 85%));
+  /* Deuteranopia - Dificuldade com verde */
+  .colorblind-deuteranopia {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 210 100% 40%; /* Azul forte */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 210 100% 35%;
+    --secondary: 25 100% 50%; /* Laranja */
+    --secondary-foreground: 0 0% 0%;
+    --secondary-hover: 25 100% 45%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 25%;
+    --accent: 210 100% 95%;
+    --accent-foreground: 210 100% 20%;
+    --destructive: 0 0% 30%; /* Cinza escuro */
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 80%;
+    --input: 0 0% 95%;
+    --ring: 210 100% 40%;
+  }
 
-    /* Sombras com contraste adequado */
-    --shadow-soft: 0 4px 20px -2px hsl(0 0% 0% / 0.15);
-    --shadow-card: 0 8px 25px -5px hsl(0 0% 0% / 0.2);
-    --shadow-hover: 0 12px 30px -8px hsl(210 100% 40% / 0.3);
+  /* Tritanopia - Dificuldade com azul */
+  .colorblind-tritanopia {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 0 100% 40%; /* Vermelho forte */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 0 100% 35%;
+    --secondary: 120 100% 25%; /* Verde escuro */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-hover: 120 100% 20%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 25%;
+    --accent: 0 100% 95%;
+    --accent-foreground: 0 100% 20%;
+    --destructive: 0 0% 30%; /* Cinza escuro */
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 80%;
+    --input: 0 0% 95%;
+    --ring: 0 100% 40%;
+  }
+
+  /* Protanomalia - Vermelho reduzido */
+  .colorblind-protanomalia {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 210 80% 45%; /* Azul moderado */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 210 80% 40%;
+    --secondary: 45 90% 55%; /* Amarelo mais suave */
+    --secondary-foreground: 0 0% 0%;
+    --secondary-hover: 45 90% 50%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 30%;
+    --accent: 210 80% 90%;
+    --accent-foreground: 210 80% 25%;
+    --destructive: 0 0% 40%; /* Cinza */
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 85%;
+    --input: 0 0% 96%;
+    --ring: 210 80% 45%;
+  }
+
+  /* Deuteranomalia - Verde reduzido */
+  .colorblind-deuteranomalia {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 210 80% 45%; /* Azul moderado */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 210 80% 40%;
+    --secondary: 25 90% 55%; /* Laranja suave */
+    --secondary-foreground: 0 0% 0%;
+    --secondary-hover: 25 90% 50%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 30%;
+    --accent: 210 80% 90%;
+    --accent-foreground: 210 80% 25%;
+    --destructive: 0 0% 40%; /* Cinza */
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 85%;
+    --input: 0 0% 96%;
+    --ring: 210 80% 45%;
+  }
+
+  /* Tritanomalia - Azul reduzido */
+  .colorblind-tritanomalia {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 0 80% 45%; /* Vermelho moderado */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 0 80% 40%;
+    --secondary: 120 80% 30%; /* Verde moderado */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-hover: 120 80% 25%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 30%;
+    --accent: 0 80% 90%;
+    --accent-foreground: 0 80% 25%;
+    --destructive: 0 0% 40%; /* Cinza */
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 85%;
+    --input: 0 0% 96%;
+    --ring: 0 80% 45%;
   }
 }
 
