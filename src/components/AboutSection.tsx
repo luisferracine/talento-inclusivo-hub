@@ -1,42 +1,32 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Accessibility, Target, Heart, Users, Building2, Zap, Shield, Globe } from "lucide-react";
-
 const AboutSection = () => {
-  const features = [
-    {
-      icon: Target,
-      title: "Facilitar o Acesso",
-      description: "Conectamos pessoas com deficiência a oportunidades reais de trabalho, eliminando barreiras e preconceitos."
-    },
-    {
-      icon: Users,
-      title: "Base de Currículos",
-      description: "Oferecemos uma plataforma acessível onde empresas podem encontrar talentos diversos de forma eficiente."
-    },
-    {
-      icon: Heart,
-      title: "Promover Inclusão",
-      description: "Fomentamos um ambiente de trabalho mais diverso, justo e inclusivo para todos."
-    },
-    {
-      icon: Shield,
-      title: "Ambiente Seguro",
-      description: "Garantimos um espaço protegido e respeitoso para candidatos e empresas se conectarem."
-    },
-    {
-      icon: Zap,
-      title: "Tecnologia Acessível",
-      description: "Nossa plataforma foi desenvolvida seguindo as melhores práticas de acessibilidade digital."
-    },
-    {
-      icon: Globe,
-      title: "Impacto Social",
-      description: "Contribuímos para uma sociedade mais inclusiva, onde o talento é valorizado acima de tudo."
-    }
-  ];
-
-  return (
-    <section id="sobre" className="py-16 bg-background">
+  const features = [{
+    icon: Target,
+    title: "Facilitar o Acesso",
+    description: "Conectamos pessoas com deficiência a oportunidades reais de trabalho, eliminando barreiras e preconceitos."
+  }, {
+    icon: Users,
+    title: "Base de Currículos",
+    description: "Oferecemos uma plataforma acessível onde empresas podem encontrar talentos diversos de forma eficiente."
+  }, {
+    icon: Heart,
+    title: "Promover Inclusão",
+    description: "Fomentamos um ambiente de trabalho mais diverso, justo e inclusivo para todos."
+  }, {
+    icon: Shield,
+    title: "Ambiente Seguro",
+    description: "Garantimos um espaço protegido e respeitoso para candidatos e empresas se conectarem."
+  }, {
+    icon: Zap,
+    title: "Tecnologia Acessível",
+    description: "Nossa plataforma foi desenvolvida seguindo as melhores práticas de acessibilidade digital."
+  }, {
+    icon: Globe,
+    title: "Impacto Social",
+    description: "Contribuímos para uma sociedade mais inclusiva, onde o talento é valorizado acima de tudo."
+  }];
+  return <section id="sobre" className="py-16 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
@@ -57,23 +47,7 @@ const AboutSection = () => {
 
         {/* Main content */}
         <div className="max-w-6xl mx-auto mb-20">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
-              Transformando o mercado de trabalho
-            </h3>
-            <div className="max-w-4xl mx-auto space-y-6">
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Acreditamos que a diversidade é uma força motriz para a inovação e o crescimento. 
-                Nossa plataforma não apenas conecta candidatos e empresas, mas também educa e 
-                sensibiliza o mercado sobre a importância da inclusão.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Com ferramentas acessíveis e uma interface pensada para todos, garantimos que 
-                cada pessoa tenha a oportunidade de mostrar seu potencial e encontrar um ambiente 
-                de trabalho onde possa prosperar.
-              </p>
-            </div>
-          </div>
+          
         </div>
 
         {/* Features grid */}
@@ -88,11 +62,7 @@ const AboutSection = () => {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card 
-                key={index} 
-                className="shadow-card border-border hover:shadow-hover transition-all duration-300 hover:-translate-y-2 group"
-              >
+            {features.map((feature, index) => <Card key={index} className="shadow-card border-border hover:shadow-hover transition-all duration-300 hover:-translate-y-2 group">
                 <CardContent className="p-8 text-center">
                   <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-secondary/20 transition-colors">
                     <feature.icon className="w-8 h-8 text-secondary" />
@@ -104,13 +74,10 @@ const AboutSection = () => {
                     {feature.description}
                   </p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default AboutSection;
