@@ -57,22 +57,6 @@ const HeroSection = () => {
               Sou Empresa - Buscar Talentos
             </Button>
           </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
-            <div className="bg-card p-6 rounded-xl shadow-card border border-border">
-              <div className="text-3xl font-bold text-primary mb-2">1000+</div>
-              <div className="text-sm text-muted-foreground">Currículos Cadastrados</div>
-            </div>
-            <div className="bg-card p-6 rounded-xl shadow-card border border-border">
-              <div className="text-3xl font-bold text-secondary mb-2">200+</div>
-              <div className="text-sm text-muted-foreground">Empresas Parceiras</div>
-            </div>
-            <div className="bg-card p-6 rounded-xl shadow-card border border-border">
-              <div className="text-3xl font-bold text-primary mb-2">500+</div>
-              <div className="text-sm text-muted-foreground">Contratações Realizadas</div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

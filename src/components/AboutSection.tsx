@@ -71,49 +71,18 @@ const AboutSection = () => {
               cada pessoa tenha a oportunidade de mostrar seu potencial e encontrar um ambiente 
               de trabalho onde possa prosperar.
             </p>
-            <div className="flex items-center gap-4 pt-4">
-              <div className="flex items-center gap-2">
-                <Building2 className="w-5 h-5 text-secondary" />
-                <span className="text-sm font-medium text-foreground">200+ Empresas</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium text-foreground">1000+ Candidatos</span>
-              </div>
-            </div>
           </div>
 
           <div className="relative">
             <div className="bg-card p-8 rounded-2xl shadow-card border border-border">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <Target className="w-6 h-6 text-primary" />
-                  </div>
-                  <div className="text-2xl font-bold text-foreground">98%</div>
-                  <div className="text-xs text-muted-foreground">Taxa de Satisfação</div>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <Zap className="w-6 h-6 text-secondary" />
-                  </div>
-                  <div className="text-2xl font-bold text-foreground">15 dias</div>
-                  <div className="text-xs text-muted-foreground">Tempo Médio</div>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <Heart className="w-6 h-6 text-primary" />
-                  </div>
-                  <div className="text-2xl font-bold text-foreground">500+</div>
-                  <div className="text-xs text-muted-foreground">Contratações</div>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <Shield className="w-6 h-6 text-secondary" />
-                  </div>
-                  <div className="text-2xl font-bold text-foreground">100%</div>
-                  <div className="text-xs text-muted-foreground">Segurança</div>
-                </div>
+              <div className="text-center">
+                <h3 className="text-2xl font-bold text-foreground mb-4">
+                  Conectando Talentos
+                </h3>
+                <p className="text-muted-foreground">
+                  Uma plataforma dedicada a criar oportunidades igualitárias e promover 
+                  a diversidade no mercado de trabalho brasileiro.
+                </p>
               </div>
             </div>
           </div>
