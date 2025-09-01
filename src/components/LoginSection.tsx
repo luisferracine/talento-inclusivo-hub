@@ -3,11 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Users, Building2, Mail, Lock, ArrowRight, UserPlus, PlusCircle } from "lucide-react";
-
 const LoginSection = () => {
-  return (
-    <section id="login" className="py-16 bg-accent">
-      <div className="container mx-auto px-4">
+  return <section id="login" className="py-16 bg-slate-50">
+      <div className="container mx-auto px-4 bg-slate-50">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Acesse sua conta
@@ -36,13 +34,7 @@ const LoginSection = () => {
                 </Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                  <Input 
-                    id="email-pcd"
-                    type="email" 
-                    placeholder="seu@email.com"
-                    className="pl-10 h-12"
-                    aria-describedby="email-pcd-desc"
-                  />
+                  <Input id="email-pcd" type="email" placeholder="seu@email.com" className="pl-10 h-12" aria-describedby="email-pcd-desc" />
                 </div>
                 <span id="email-pcd-desc" className="sr-only">
                   Digite seu endereço de e-mail para acessar sua conta
@@ -55,42 +47,24 @@ const LoginSection = () => {
                 </Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                  <Input 
-                    id="password-pcd"
-                    type="password" 
-                    placeholder="Sua senha"
-                    className="pl-10 h-12"
-                    aria-describedby="password-pcd-desc"
-                  />
+                  <Input id="password-pcd" type="password" placeholder="Sua senha" className="pl-10 h-12" aria-describedby="password-pcd-desc" />
                 </div>
                 <span id="password-pcd-desc" className="sr-only">
                   Digite sua senha para acessar sua conta
                 </span>
               </div>
 
-              <Button 
-                className="w-full h-12 text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" 
-                variant="hero"
-                aria-label="Entrar na área PCD"
-              >
+              <Button className="w-full h-12 text-primary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" variant="hero" aria-label="Entrar na área PCD">
                 Entrar
                 <ArrowRight className="w-4 h-4" />
               </Button>
 
               <div className="text-center pt-4 space-y-2">
-                <Button 
-                  variant="ghost" 
-                  className="text-sm text-slate-600 hover:text-primary bg-transparent hover:bg-transparent"
-                  aria-label="Recuperar senha da conta PCD"
-                >
+                <Button variant="ghost" className="text-sm text-slate-600 hover:text-primary bg-transparent hover:bg-transparent" aria-label="Recuperar senha da conta PCD">
                   Esqueci minha senha
                 </Button>
                 <div className="flex items-center justify-center">
-                  <Button 
-                    variant="ghost" 
-                    className="text-sm text-primary hover:text-secondary bg-transparent hover:bg-transparent"
-                    aria-label="Criar nova conta PCD"
-                  >
+                  <Button variant="ghost" className="text-sm text-primary hover:text-secondary bg-transparent hover:bg-transparent" aria-label="Criar nova conta PCD">
                     <UserPlus className="w-4 h-4" />
                     Criar conta PCD
                   </Button>
@@ -117,13 +91,7 @@ const LoginSection = () => {
                 </Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                  <Input 
-                    id="email-empresa"
-                    type="email" 
-                    placeholder="empresa@dominio.com"
-                    className="pl-10 h-12"
-                    aria-describedby="email-empresa-desc"
-                  />
+                  <Input id="email-empresa" type="email" placeholder="empresa@dominio.com" className="pl-10 h-12" aria-describedby="email-empresa-desc" />
                 </div>
                 <span id="email-empresa-desc" className="sr-only">
                   Digite o e-mail corporativo da sua empresa
@@ -136,42 +104,24 @@ const LoginSection = () => {
                 </Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                  <Input 
-                    id="password-empresa"
-                    type="password" 
-                    placeholder="Sua senha"
-                    className="pl-10 h-12"
-                    aria-describedby="password-empresa-desc"
-                  />
+                  <Input id="password-empresa" type="password" placeholder="Sua senha" className="pl-10 h-12" aria-describedby="password-empresa-desc" />
                 </div>
                 <span id="password-empresa-desc" className="sr-only">
                   Digite a senha da sua conta empresarial
                 </span>
               </div>
 
-              <Button 
-                className="w-full h-12 text-secondary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" 
-                variant="secondary"
-                aria-label="Entrar na área empresarial"
-              >
+              <Button className="w-full h-12 text-secondary-foreground font-semibold shadow-soft hover:shadow-hover hover:scale-105 transition-all duration-300 border-0" variant="secondary" aria-label="Entrar na área empresarial">
                 Entrar
                 <ArrowRight className="w-4 h-4" />
               </Button>
 
               <div className="text-center pt-4 space-y-2">
-                <Button 
-                  variant="ghost" 
-                  className="text-sm text-slate-600 hover:text-primary bg-transparent hover:bg-transparent"
-                  aria-label="Recuperar senha da conta empresarial"
-                >
+                <Button variant="ghost" className="text-sm text-slate-600 hover:text-primary bg-transparent hover:bg-transparent" aria-label="Recuperar senha da conta empresarial">
                   Esqueci minha senha
                 </Button>
                 <div className="flex items-center justify-center">
-                  <Button 
-                    variant="ghost" 
-                    className="text-sm text-secondary hover:text-primary bg-transparent hover:bg-transparent"
-                    aria-label="Cadastrar nova empresa"
-                  >
+                  <Button variant="ghost" className="text-sm text-secondary hover:text-primary bg-transparent hover:bg-transparent" aria-label="Cadastrar nova empresa">
                     <PlusCircle className="w-4 h-4" />
                     Cadastrar Empresa
                   </Button>
@@ -181,8 +131,6 @@ const LoginSection = () => {
           </Card>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default LoginSection;
