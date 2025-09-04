@@ -11,6 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Users, Building2, ArrowLeft, Mail, Lock, User, MapPin, Phone, Calendar, CreditCard, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -25,15 +26,26 @@ const loginSchema = z.object({
 const pcdSignupSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.string().email("Email inválido"),
+  confirmEmail: z.string().email("Email inválido"),
   phone: z.string().min(10, "Telefone inválido"),
   cpf: z.string().min(11, "CPF inválido"),
   birthDate: z.string().min(1, "Data de nascimento é obrigatória"),
   password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
   confirmPassword: z.string(),
-  city: z.string().min(2, "Cidade deve ter pelo menos 2 caracteres"),
+  deficiencyTypes: z.object({
+    motora: z.boolean().default(false),
+    auditiva: z.boolean().default(false),
+    visual: z.boolean().default(false),
+  }).refine((data) => data.motora || data.auditiva || data.visual, {
+    message: "Selecione pelo menos um tipo de deficiência",
+  }),
+  deficiencySubtype: z.string().min(1, "Descreva o subtipo da deficiência"),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Senhas não coincidem",
   path: ["confirmPassword"],
+}).refine((data) => data.email === data.confirmEmail, {
+  message: "Emails não coincidem", 
+  path: ["confirmEmail"],
 });
 
 const empresaSignupSchema = z.object({
@@ -331,48 +343,133 @@ const Login = () => {
                         )}
                       />
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <FormField
+                        control={pcdSignupForm.control}
+                        name="confirmEmail"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Confirmar email</FormLabel>
+                            <FormControl>
+                              <div className="relative">
+                                <Mail className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                                <Input
+                                  {...field}
+                                  type="email"
+                                  placeholder="Confirme seu email"
+                                  className="pl-10"
+                                />
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={pcdSignupForm.control}
+                        name="birthDate"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Data de nascimento</FormLabel>
+                            <FormControl>
+                              <div className="relative">
+                                <Calendar className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                                <Input
+                                  {...field}
+                                  type="date"
+                                  className="pl-10"
+                                />
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <div className="space-y-3">
+                        <FormLabel>Tipo de deficiência</FormLabel>
+                        <div className="space-y-2">
+                          <FormField
+                            control={pcdSignupForm.control}
+                            name="deficiencyTypes.motora"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel>Deficiência motora</FormLabel>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={pcdSignupForm.control}
+                            name="deficiencyTypes.auditiva"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel>Deficiência auditiva</FormLabel>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={pcdSignupForm.control}
+                            name="deficiencyTypes.visual"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel>Deficiência visual</FormLabel>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
                         <FormField
                           control={pcdSignupForm.control}
-                          name="birthDate"
-                          render={({ field }) => (
+                          name="deficiencyTypes"
+                          render={() => (
                             <FormItem>
-                              <FormLabel>Data de nascimento</FormLabel>
-                              <FormControl>
-                                <div className="relative">
-                                  <Calendar className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                                  <Input
-                                    {...field}
-                                    type="date"
-                                    className="pl-10"
-                                  />
-                                </div>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={pcdSignupForm.control}
-                          name="city"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Cidade</FormLabel>
-                              <FormControl>
-                                <div className="relative">
-                                  <MapPin className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                                  <Input
-                                    {...field}
-                                    placeholder="Sua cidade"
-                                    className="pl-10"
-                                  />
-                                </div>
-                              </FormControl>
                               <FormMessage />
                             </FormItem>
                           )}
                         />
                       </div>
+
+                      <FormField
+                        control={pcdSignupForm.control}
+                        name="deficiencySubtype"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Subtipo de deficiência</FormLabel>
+                            <FormControl>
+                              <Textarea
+                                {...field}
+                                placeholder="Descreva mais detalhes sobre sua deficiência"
+                                className="resize-none"
+                                rows={3}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
                       <FormField
                         control={pcdSignupForm.control}
