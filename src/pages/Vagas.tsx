@@ -1,16 +1,42 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, MapPin, Clock, Building2, Users, ArrowLeft } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Search, MapPin, Clock, Building2, Users, ArrowLeft, Home } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
+
+// Schema de validação para candidatura
+const candidaturaSchema = z.object({
+  rua: z.string().min(1, "Rua é obrigatória"),
+  numero: z.string().min(1, "Número da casa é obrigatório"),
+  cep: z.string().min(8, "CEP deve ter 8 dígitos").max(9, "CEP inválido"),
+  endereco: z.string().min(1, "Endereço completo é obrigatório"),
+});
 
 const Vagas = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterLocation, setFilterLocation] = useState("all");
   const [filterType, setFilterType] = useState("all");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedVaga, setSelectedVaga] = useState<any>(null);
+
+  const candidaturaForm = useForm<z.infer<typeof candidaturaSchema>>({
+    resolver: zodResolver(candidaturaSchema),
+    defaultValues: {
+      rua: "",
+      numero: "",
+      cep: "",
+      endereco: "",
+    },
+  });
 
   const vagas = [
     {
@@ -95,6 +121,22 @@ const Vagas = () => {
     
     return matchesSearch && matchesLocation && matchesType;
   });
+
+  const handleCandidatar = (vaga: any) => {
+    setSelectedVaga(vaga);
+    setIsModalOpen(true);
+    candidaturaForm.reset();
+  };
+
+  const onSubmitCandidatura = (values: z.infer<typeof candidaturaSchema>) => {
+    console.log("Candidatura enviada:", {
+      vaga: selectedVaga,
+      dadosCandidato: values
+    });
+    toast.success(`Candidatura enviada para a vaga de ${selectedVaga?.titulo}!`);
+    setIsModalOpen(false);
+    setSelectedVaga(null);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -222,7 +264,10 @@ const Vagas = () => {
                     <Users className="w-4 h-4" />
                     Vaga inclusiva para PCD
                   </div>
-                  <Button variant="default">
+                  <Button 
+                    variant="default"
+                    onClick={() => handleCandidatar(vaga)}
+                  >
                     Candidatar-se
                   </Button>
                 </div>
@@ -241,6 +286,111 @@ const Vagas = () => {
           </Card>
         )}
       </div>
+
+      {/* Modal de Candidatura */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Home className="w-5 h-5" />
+              Candidatar-se à vaga
+            </DialogTitle>
+            <DialogDescription>
+              {selectedVaga && (
+                <span>
+                  Vaga: <strong>{selectedVaga.titulo}</strong> - {selectedVaga.empresa}
+                </span>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <Form {...candidaturaForm}>
+            <form onSubmit={candidaturaForm.handleSubmit(onSubmitCandidatura)} className="space-y-4">
+              <FormField
+                control={candidaturaForm.control}
+                name="rua"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Rua</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Nome da rua"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={candidaturaForm.control}
+                name="numero"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Número da casa</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Número"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={candidaturaForm.control}
+                name="cep"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>CEP</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="00000-000"
+                        maxLength={9}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={candidaturaForm.control}
+                name="endereco"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Endereço completo</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Endereço completo (bairro, cidade, estado)"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <DialogFooter>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancelar
+                </Button>
+                <Button type="submit">
+                  Enviar Candidatura
+                </Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
