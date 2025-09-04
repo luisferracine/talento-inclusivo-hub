@@ -48,7 +48,7 @@ const Vagas = () => {
       modalidade: "Remoto",
       salario: "R$ 5.000 - R$ 8.000",
       descricao: "Desenvolvimento de interfaces web responsivas usando React e TypeScript.",
-      requisitos: ["React", "TypeScript", "HTML/CSS", "Git"],
+      acessibilidades: ["Leitor de tela compatível", "Contraste alto disponível", "Navegação por teclado", "Zoom até 200%"],
       publicadoEm: "2 dias atrás"
     },
     {
@@ -60,7 +60,7 @@ const Vagas = () => {
       modalidade: "Híbrido",
       salario: "R$ 3.500 - R$ 5.000",
       descricao: "Atendimento ao cliente e resolução de problemas técnicos.",
-      requisitos: ["Comunicação", "Informática básica", "Paciência", "Organização"],
+      acessibilidades: ["Intérprete de Libras", "Telefone amplificado", "Mesa regulável", "Software de lupa"],
       publicadoEm: "1 dia atrás"
     },
     {
@@ -72,7 +72,7 @@ const Vagas = () => {
       modalidade: "Presencial",
       salario: "R$ 4.000 - R$ 7.000",
       descricao: "Criação de interfaces intuitivas e experiências de usuário excepcionais.",
-      requisitos: ["Figma", "Adobe XD", "Prototipagem", "Design thinking"],
+      acessibilidades: ["Software de reconhecimento de voz", "Monitor de alto contraste", "Teclado ergonômico", "Mouse adaptado"],
       publicadoEm: "3 dias atrás"
     },
     {
@@ -84,7 +84,7 @@ const Vagas = () => {
       modalidade: "Presencial",
       salario: "R$ 2.500 - R$ 3.500",
       descricao: "Organização de documentos, atendimento telefônico e tarefas administrativas.",
-      requisitos: ["Pacote Office", "Organização", "Comunicação", "Proatividade"],
+      acessibilidades: ["Rampa de acesso", "Banheiro adaptado", "Cadeira de rodas disponível", "Elevador"],
       publicadoEm: "5 dias atrás"
     },
     {
@@ -96,7 +96,7 @@ const Vagas = () => {
       modalidade: "Remoto",
       salario: "R$ 6.000 - R$ 9.000",
       descricao: "Análise de dados para tomada de decisões estratégicas.",
-      requisitos: ["SQL", "Python", "Excel", "Power BI"],
+      acessibilidades: ["Leitor de tela NVDA", "Teclado em Braille", "Descrição de gráficos", "Áudio-descrição"],
       publicadoEm: "1 semana atrás"
     },
     {
@@ -108,7 +108,7 @@ const Vagas = () => {
       modalidade: "Presencial",
       salario: "R$ 1.800 - R$ 2.500",
       descricao: "Atendimento telefônico ao cliente com foco em qualidade e satisfação.",
-      requisitos: ["Comunicação clara", "Paciência", "Informática básica", "Flexibilidade"],
+      acessibilidades: ["Headset com amplificação", "Iluminação adequada", "Mesa ajustável", "Pausas regulares"],
       publicadoEm: "4 dias atrás"
     }
   ];
@@ -249,21 +249,17 @@ const Vagas = () => {
                 <p className="text-muted-foreground mb-4">{vaga.descricao}</p>
                 
                 <div className="mb-4">
-                  <h4 className="font-medium mb-2">Requisitos:</h4>
+                  <h4 className="font-medium mb-2">Acessibilidades:</h4>
                   <div className="flex flex-wrap gap-2">
-                    {vaga.requisitos.map((req, index) => (
+                    {vaga.acessibilidades.map((acc, index) => (
                       <Badge key={index} variant="outline" className="text-xs">
-                        {req}
+                        {acc}
                       </Badge>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Users className="w-4 h-4" />
-                    Vaga inclusiva para PCD
-                  </div>
+                <div className="flex items-center justify-end">
                   <Button 
                     variant="default"
                     onClick={() => handleCandidatar(vaga)}
