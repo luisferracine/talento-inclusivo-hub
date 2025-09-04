@@ -84,14 +84,14 @@ const DashboardEmpresa = () => {
   };
 
   const handleArchiveVaga = (vaga: Vaga) => {
-    const vagaArquivada: Vaga = {
+    const vagaAtualizada: Vaga = {
       ...vaga,
-      status: vaga.status === "Arquivada" ? "Ativa" : "Arquivada"
+      status: vaga.status === "Pausada" ? "Ativa" : "Pausada"
     };
     
-    setVagas(vagas.map(v => v.id === vaga.id ? vagaArquivada : v));
+    setVagas(vagas.map(v => v.id === vaga.id ? vagaAtualizada : v));
     
-    const action = vagaArquivada.status === "Arquivada" ? "arquivada" : "reativada";
+    const action = vagaAtualizada.status === "Pausada" ? "pausada" : "ativada";
     toast.success(`Vaga ${action} com sucesso!`);
   };
 
@@ -203,9 +203,7 @@ const DashboardEmpresa = () => {
                     <TableCell>
                       <Badge 
                         variant={
-                          vaga.status === "Ativa" ? "default" : 
-                          vaga.status === "Pausada" ? "secondary" : 
-                          "destructive"
+                          vaga.status === "Ativa" ? "default" : "secondary"
                         }
                       >
                         {vaga.status}
@@ -242,7 +240,7 @@ const DashboardEmpresa = () => {
                         <Button 
                           variant="ghost" 
                           size="icon" 
-                          title={vaga.status === "Arquivada" ? "Reativar vaga" : "Arquivar vaga"}
+                          title={vaga.status === "Pausada" ? "Ativar vaga" : "Pausar vaga"}
                           onClick={() => handleArchiveVaga(vaga)}
                         >
                           <Archive className="w-4 h-4" />
