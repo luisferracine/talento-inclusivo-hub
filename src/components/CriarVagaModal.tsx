@@ -189,7 +189,7 @@ export function CriarVagaModal({ open, onOpenChange }: CriarVagaModalProps) {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Ex: R$ 5.000 - R$ 8.000"
+                      placeholder="Ex: R$ 5.000,00"
                       {...field}
                     />
                   </FormControl>
