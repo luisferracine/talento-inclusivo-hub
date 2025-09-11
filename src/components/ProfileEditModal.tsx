@@ -11,7 +11,6 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -36,8 +35,7 @@ const profileSchema = z.object({
   // Segurança
   senhaAtual: z.string().optional(),
   novaSenha: z.string().min(8, "Nova senha deve ter pelo menos 8 caracteres").optional(),
-  confirmarSenha: z.string().optional(),
-  
+  confirmarSenha: z.string().optional()
 }).refine(data => {
   if (data.novaSenha && !data.senhaAtual) {
     return false;
@@ -79,8 +77,7 @@ export function ProfileEditModal({
       modoDaltonismo: accessibilitySettings.modoDaltonismo,
       senhaAtual: "",
       novaSenha: "",
-      confirmarSenha: "",
-      
+      confirmarSenha: ""
     }
   });
   const handleLaudoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -212,10 +209,8 @@ export function ProfileEditModal({
 
               <TabsContent value="accessibility" className="space-y-6">
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">Preferências de Acessibilidade</h3>
-                  <p className="text-muted-foreground">
-                    Configure as opções de acessibilidade para melhorar sua experiência.
-                  </p>
+                  
+                  
 
                   <div className="space-y-4">
                     <FormField control={form.control} name="modoDaltonismo" render={({
