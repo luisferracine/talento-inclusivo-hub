@@ -53,13 +53,22 @@ const pcdSignupSchema = z.object({
 });
 
 const empresaSignupSchema = z.object({
-  companyName: z.string().min(2, "Nome da empresa deve ter pelo menos 2 caracteres"),
+  nomeFantasia: z.string().min(2, "Nome fantasia deve ter pelo menos 2 caracteres"),
+  razaoSocial: z.string().min(2, "Razão social deve ter pelo menos 2 caracteres"),
   cnpj: z.string().min(14, "CNPJ inválido"),
   email: z.string().email("Email inválido"),
   password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
   confirmPassword: z.string(),
   phone: z.string().min(10, "Telefone inválido"),
-  city: z.string().min(2, "Cidade deve ter pelo menos 2 caracteres"),
+  acessibilidade: z.object({
+    rampaInclinacao: z.boolean().default(false),
+    pisoAntiderrapante: z.boolean().default(false),
+    elevadorNivel: z.boolean().default(false),
+    interpreteLibras: z.boolean().default(false),
+    chatInterno: z.boolean().default(false),
+    sinalizacaoContraste: z.boolean().default(false),
+    pisoGuia: z.boolean().default(false),
+  }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Senhas não coincidem",
   path: ["confirmPassword"],
@@ -102,6 +111,17 @@ const Login = () => {
 
   const empresaSignupForm = useForm<z.infer<typeof empresaSignupSchema>>({
     resolver: zodResolver(empresaSignupSchema),
+    defaultValues: {
+      acessibilidade: {
+        rampaInclinacao: false,
+        pisoAntiderrapante: false,
+        elevadorNivel: false,
+        interpreteLibras: false,
+        chatInterno: false,
+        sinalizacaoContraste: false,
+        pisoGuia: false,
+      },
+    },
   });
 
   const resetPasswordForm = useForm<z.infer<typeof resetPasswordSchema>>({
@@ -673,16 +693,36 @@ const Login = () => {
                     <form onSubmit={empresaSignupForm.handleSubmit(onEmpresaSignup)} className="space-y-4">
                       <FormField
                         control={empresaSignupForm.control}
-                        name="companyName"
+                        name="nomeFantasia"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Nome da empresa</FormLabel>
+                            <FormLabel>Nome fantasia</FormLabel>
                             <FormControl>
                               <div className="relative">
                                 <Building2 className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
                                 <Input
                                   {...field}
-                                  placeholder="Nome da sua empresa"
+                                  placeholder="Nome fantasia da empresa"
+                                  className="pl-10"
+                                />
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={empresaSignupForm.control}
+                        name="razaoSocial"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Razão social</FormLabel>
+                            <FormControl>
+                              <div className="relative">
+                                <Building2 className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                                <Input
+                                  {...field}
+                                  placeholder="Razão social da empresa"
                                   className="pl-10"
                                 />
                               </div>
@@ -728,47 +768,150 @@ const Login = () => {
                           </FormItem>
                         )}
                       />
-                      <div className="grid grid-cols-2 gap-4">
-                        <FormField
-                          control={empresaSignupForm.control}
-                          name="phone"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Telefone</FormLabel>
-                              <FormControl>
-                                <div className="relative">
-                                  <Phone className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                                  <Input
-                                    {...field}
-                                    placeholder="(11) 99999-9999"
-                                    className="pl-10"
+                      <FormField
+                        control={empresaSignupForm.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Telefone</FormLabel>
+                            <FormControl>
+                              <div className="relative">
+                                <Phone className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                                <Input
+                                  {...field}
+                                  placeholder="(11) 99999-9999"
+                                  className="pl-10"
+                                />
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <div className="space-y-3">
+                        <FormLabel>Acessibilidade oferecida</FormLabel>
+                        <div className="space-y-2 border rounded-lg p-4 bg-muted/30">
+                          <FormField
+                            control={empresaSignupForm.control}
+                            name="acessibilidade.rampaInclinacao"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
                                   />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel className="text-sm font-normal">Rampa com inclinação adequada</FormLabel>
                                 </div>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={empresaSignupForm.control}
-                          name="city"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Cidade</FormLabel>
-                              <FormControl>
-                                <div className="relative">
-                                  <MapPin className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                                  <Input
-                                    {...field}
-                                    placeholder="Cidade da empresa"
-                                    className="pl-10"
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={empresaSignupForm.control}
+                            name="acessibilidade.pisoAntiderrapante"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
                                   />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel className="text-sm font-normal">Piso antiderrapante</FormLabel>
                                 </div>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={empresaSignupForm.control}
+                            name="acessibilidade.elevadorNivel"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel className="text-sm font-normal">Elevador / Acesso em nível</FormLabel>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={empresaSignupForm.control}
+                            name="acessibilidade.interpreteLibras"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel className="text-sm font-normal">Intérprete de Libras</FormLabel>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={empresaSignupForm.control}
+                            name="acessibilidade.chatInterno"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel className="text-sm font-normal">Comunicação por chat interno</FormLabel>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={empresaSignupForm.control}
+                            name="acessibilidade.sinalizacaoContraste"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel className="text-sm font-normal">Sinalização de alto contraste</FormLabel>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={empresaSignupForm.control}
+                            name="acessibilidade.pisoGuia"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel className="text-sm font-normal">Piso guia / Sinalização tátil</FormLabel>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
                       </div>
                       <FormField
                         control={empresaSignupForm.control}
