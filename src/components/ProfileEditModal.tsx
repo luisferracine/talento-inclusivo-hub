@@ -11,7 +11,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
+
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -38,7 +38,7 @@ const profileSchema = z.object({
   senhaAtual: z.string().optional(),
   novaSenha: z.string().min(8, "Nova senha deve ter pelo menos 8 caracteres").optional(),
   confirmarSenha: z.string().optional(),
-  autenticacaoDoisFatores: z.boolean().default(false)
+  
 }).refine(data => {
   if (data.novaSenha && !data.senhaAtual) {
     return false;
@@ -82,7 +82,7 @@ export function ProfileEditModal({
       senhaAtual: "",
       novaSenha: "",
       confirmarSenha: "",
-      autenticacaoDoisFatores: false
+      
     }
   });
   const handleLaudoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -332,21 +332,6 @@ export function ProfileEditModal({
                           </FormItem>} />
                     </div>
 
-                    <FormField control={form.control} name="autenticacaoDoisFatores" render={({
-                    field
-                  }) => <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                          <FormControl>
-                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel>
-                              Autenticação em Dois Fatores
-                            </FormLabel>
-                            <FormDescription>
-                              Adiciona uma camada extra de segurança à sua conta.
-                            </FormDescription>
-                          </div>
-                        </FormItem>} />
                   </div>
                 </div>
               </TabsContent>
