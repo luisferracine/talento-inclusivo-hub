@@ -1,4 +1,5 @@
 import { Heart, Accessibility } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -77,15 +78,9 @@ const Footer = () => {
             © 2025 PCDentro. Todos os direitos reservados.
           </p>
           <div className="flex flex-wrap gap-4">
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Política de Privacidade
-            </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Termos de Uso
-            </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Acessibilidade
-            </a>
+            <Link to="/politicas-termos" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Políticas e Termos
+            </Link>
           </div>
         </div>
       </div>
