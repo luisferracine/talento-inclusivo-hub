@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Users, Building2, ArrowLeft, Mail, Lock, User, MapPin, Phone, Calendar, CreditCard, Eye } from "lucide-react";
+import { Users, Building2, ArrowLeft, Mail, Lock, User, MapPin, Phone, Calendar, IdCard, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { useColorblindMode } from "@/hooks/use-colorblind-mode";
@@ -322,8 +322,8 @@ const Login = () => {
                             <FormItem>
                               <FormLabel>CPF</FormLabel>
                               <FormControl>
-                                <div className="relative">
-                                  <CreditCard className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                               <div className="relative">
+                                  <IdCard className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
                                   <Input
                                     {...field}
                                     placeholder="000.000.000-00"
