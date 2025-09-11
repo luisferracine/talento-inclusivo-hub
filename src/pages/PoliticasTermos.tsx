@@ -4,10 +4,8 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-
 const PoliticasTermos = () => {
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Header />
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="mb-8">
@@ -199,15 +197,9 @@ const PoliticasTermos = () => {
           </div>
         </section>
 
-        <div className="text-center pt-8">
-          <p className="text-sm text-muted-foreground">
-            Última atualização: Janeiro de 2025
-          </p>
-        </div>
+        
       </main>
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default PoliticasTermos;
