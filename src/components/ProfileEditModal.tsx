@@ -12,7 +12,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -77,7 +76,6 @@ export function ProfileEditModal({
       telefone: "(11) 99999-9999",
       dataNascimento: new Date("1990-01-01"),
       endereco: "São Paulo, SP",
-      fontesGrandes: accessibilitySettings.fontesGrandes,
       modoDaltonismo: accessibilitySettings.modoDaltonismo,
       senhaAtual: "",
       novaSenha: "",
@@ -220,35 +218,6 @@ export function ProfileEditModal({
                   </p>
 
                   <div className="space-y-4">
-                    <FormField control={form.control} name="fontesGrandes" render={({
-                    field
-                  }) => <FormItem className="space-y-4">
-                          <div>
-                            <FormLabel className="text-base font-medium">
-                              Tamanho das Fontes
-                            </FormLabel>
-                            <FormDescription>
-                              Ajuste o tamanho das fontes de {field.value}% do tamanho padrão.
-                            </FormDescription>
-                          </div>
-                          <FormControl>
-                            <div className="px-3">
-                              <Slider min={100} max={150} step={5} value={[field.value]} onValueChange={value => {
-                          field.onChange(value[0]);
-                          updateAccessibilitySettings({
-                            fontesGrandes: value[0]
-                          });
-                        }} className="w-full" />
-                              <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                                <span>100%</span>
-                                <span>125%</span>
-                                <span>150%</span>
-                              </div>
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>} />
-
                     <FormField control={form.control} name="modoDaltonismo" render={({
                     field
                   }) => <FormItem>
