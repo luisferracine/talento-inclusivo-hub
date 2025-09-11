@@ -283,42 +283,118 @@ Todas as cores em HSL para máxima compatibilidade
   --font-scale: var(--font-scale, 1);
 }
 
+/* Base font scaling with responsive limits */
+.accessibility-large-fonts {
+  font-size: clamp(0.875rem, calc(0.875rem * var(--font-scale, 1)), 1.2rem);
+}
+
+/* Responsive font scaling for different text sizes */
 .accessibility-large-fonts .text-xs {
-  font-size: calc(0.75rem * var(--font-scale, 1)) !important;
+  font-size: clamp(0.65rem, calc(0.75rem * var(--font-scale, 1)), 1rem);
 }
 
 .accessibility-large-fonts .text-sm {
-  font-size: calc(0.875rem * var(--font-scale, 1)) !important;
+  font-size: clamp(0.75rem, calc(0.875rem * var(--font-scale, 1)), 1.1rem);
 }
 
 .accessibility-large-fonts .text-base {
-  font-size: calc(1rem * var(--font-scale, 1)) !important;
+  font-size: clamp(0.875rem, calc(1rem * var(--font-scale, 1)), 1.2rem);
 }
 
 .accessibility-large-fonts .text-lg {
-  font-size: calc(1.125rem * var(--font-scale, 1)) !important;
+  font-size: clamp(1rem, calc(1.125rem * var(--font-scale, 1)), 1.4rem);
 }
 
 .accessibility-large-fonts .text-xl {
-  font-size: calc(1.25rem * var(--font-scale, 1)) !important;
+  font-size: clamp(1.1rem, calc(1.25rem * var(--font-scale, 1)), 1.6rem);
 }
 
 .accessibility-large-fonts .text-2xl {
-  font-size: calc(1.5rem * var(--font-scale, 1)) !important;
+  font-size: clamp(1.3rem, calc(1.5rem * var(--font-scale, 1)), 1.8rem);
 }
 
 .accessibility-large-fonts .text-3xl {
-  font-size: calc(1.875rem * var(--font-scale, 1)) !important;
+  font-size: clamp(1.5rem, calc(1.875rem * var(--font-scale, 1)), 2.2rem);
 }
 
 .accessibility-large-fonts .text-4xl {
-  font-size: calc(2.25rem * var(--font-scale, 1)) !important;
+  font-size: clamp(1.8rem, calc(2.25rem * var(--font-scale, 1)), 2.8rem);
 }
 
-/* Aplicar escala também em elementos de formulário e botões */
+/* Form elements with responsive scaling */
 .accessibility-large-fonts input,
 .accessibility-large-fonts button,
 .accessibility-large-fonts select,
 .accessibility-large-fonts textarea {
-  font-size: calc(0.875rem * var(--font-scale, 1)) !important;
+  font-size: clamp(0.75rem, calc(0.875rem * var(--font-scale, 1)), 1.1rem);
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+  .accessibility-large-fonts {
+    /* Prevent horizontal overflow on mobile */
+    overflow-x: hidden;
+  }
+  
+  /* Reduce max scaling on mobile for better UX */
+  .accessibility-large-fonts .text-xs {
+    font-size: clamp(0.7rem, calc(0.75rem * var(--font-scale, 1)), 0.9rem);
+  }
+  
+  .accessibility-large-fonts .text-sm {
+    font-size: clamp(0.8rem, calc(0.875rem * var(--font-scale, 1)), 1rem);
+  }
+  
+  .accessibility-large-fonts .text-base {
+    font-size: clamp(0.9rem, calc(1rem * var(--font-scale, 1)), 1.1rem);
+  }
+  
+  .accessibility-large-fonts .text-lg {
+    font-size: clamp(1rem, calc(1.125rem * var(--font-scale, 1)), 1.2rem);
+  }
+  
+  .accessibility-large-fonts .text-xl {
+    font-size: clamp(1.1rem, calc(1.25rem * var(--font-scale, 1)), 1.3rem);
+  }
+  
+  .accessibility-large-fonts .text-2xl {
+    font-size: clamp(1.2rem, calc(1.5rem * var(--font-scale, 1)), 1.5rem);
+  }
+  
+  .accessibility-large-fonts .text-3xl {
+    font-size: clamp(1.4rem, calc(1.875rem * var(--font-scale, 1)), 1.8rem);
+  }
+  
+  .accessibility-large-fonts .text-4xl {
+    font-size: clamp(1.6rem, calc(2.25rem * var(--font-scale, 1)), 2rem);
+  }
+  
+  /* Mobile form elements */
+  .accessibility-large-fonts input,
+  .accessibility-large-fonts button,
+  .accessibility-large-fonts select,
+  .accessibility-large-fonts textarea {
+    font-size: clamp(0.8rem, calc(0.875rem * var(--font-scale, 1)), 1rem);
+  }
+}
+
+/* Container adjustments for better mobile experience */
+@media (max-width: 640px) {
+  .accessibility-large-fonts .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Ensure buttons and interactive elements remain usable */
+.accessibility-large-fonts button,
+.accessibility-large-fonts [role="button"] {
+  min-height: 44px; /* Accessibility minimum touch target */
+}
+
+@media (max-width: 640px) {
+  .accessibility-large-fonts button,
+  .accessibility-large-fonts [role="button"] {
+    min-height: 48px; /* Larger touch target on mobile */
+  }
 }

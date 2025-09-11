@@ -35,14 +35,30 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const root = document.documentElement;
     
-    // Fontes grandes - aplicar porcentagem
+    // Fontes grandes - aplicar porcentagem com limite para mobile
     const fontScale = settings.fontesGrandes / 100;
-    root.style.setProperty('--font-scale', fontScale.toString());
+    const isMobile = window.matchMedia('(max-width: 640px)').matches;
+    
+    // Limitar scaling em mobile para melhor UX
+    const maxScale = isMobile ? 1.3 : 1.5;
+    const clampedScale = Math.min(fontScale, maxScale);
+    
+    root.style.setProperty('--font-scale', clampedScale.toString());
     
     if (settings.fontesGrandes > 100) {
       root.classList.add("accessibility-large-fonts");
     } else {
       root.classList.remove("accessibility-large-fonts");
+    }
+
+    // Ajustar viewport em mobile quando zoom está ativo
+    if (isMobile && settings.fontesGrandes > 100) {
+      const metaViewport = document.querySelector('meta[name="viewport"]');
+      if (metaViewport) {
+        metaViewport.setAttribute('content', 
+          'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+        );
+      }
     }
 
     // Remover todas as classes de daltonismo anteriores
