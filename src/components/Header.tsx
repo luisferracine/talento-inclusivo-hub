@@ -13,7 +13,7 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between gap-2">
           {/* Logo */}
-          <div className="flex items-center gap-3 flex-shrink-0">
+          <div className="flex items-center gap-3 flex-shrink-0 flex-1">
             <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-lg flex items-center justify-center">
               <Accessibility className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
@@ -23,8 +23,8 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
+          {/* Navigation - Centered */}
+          <nav className="hidden md:flex items-center gap-6 flex-1 justify-center">
             <a href="#home" className="text-foreground hover:text-primary transition-colors font-medium" aria-label="Ir para página inicial">
               Início
             </a>
@@ -34,11 +34,10 @@ const Header = () => {
             <Link to="/vagas" className="text-foreground hover:text-primary transition-colors font-medium" aria-label="Ver vagas disponíveis">
               Vagas
             </Link>
-            
           </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
+          <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0 flex-1 justify-end">
             {/* Colorblind Mode Selector - Hidden on very small screens */}
             <div className="hidden sm:flex items-center gap-2">
               <Label className="text-sm font-medium flex items-center gap-1">
