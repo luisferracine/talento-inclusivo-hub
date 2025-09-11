@@ -42,7 +42,6 @@ const formSchema = z.object({
   dataFinal: z.date({
     required_error: "Data final é obrigatória",
   }),
-  acessibilidade: z.string().optional(),
   ativo: z.boolean().default(true),
 }).refine((data) => data.dataFinal > data.dataInicio, {
   message: "Data final deve ser posterior à data de início",
@@ -91,7 +90,6 @@ export const EditarVagaModal = ({
       salario: "",
       dataInicio: undefined,
       dataFinal: undefined,
-      acessibilidade: "",
       ativo: true,
     },
   });
@@ -106,7 +104,6 @@ export const EditarVagaModal = ({
         salario: vaga.salario || "",
         dataInicio: vaga.dataInicio,
         dataFinal: vaga.dataFinal,
-        acessibilidade: vaga.acessibilidade || "",
         ativo: vaga.status === "Ativa",
       });
     }
@@ -129,7 +126,6 @@ export const EditarVagaModal = ({
         salario: data.salario,
         dataInicio: data.dataInicio,
         dataFinal: data.dataFinal,
-        acessibilidade: data.acessibilidade,
         status: data.ativo ? "Ativa" : "Pausada",
       };
       
@@ -302,27 +298,6 @@ export const EditarVagaModal = ({
                 )}
               />
             </div>
-            
-            <FormField
-              control={form.control}
-              name="acessibilidade"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Recursos de Acessibilidade</FormLabel>
-                  <FormControl>
-                    <Textarea 
-                      placeholder="Descreva os recursos de acessibilidade disponíveis (opcional)..."
-                      className="min-h-[60px]"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Informe sobre adaptações, tecnologias assistivas ou outros recursos disponíveis.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             
             <FormField
               control={form.control}
