@@ -7,9 +7,11 @@ import { ColorblindModeProvider } from "@/hooks/use-colorblind-mode";
 import { AccessibilityProvider } from "@/hooks/use-accessibility";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
+import LoginAdmin from "./pages/LoginAdmin";
 import Vagas from "./pages/Vagas";
 import DashboardEmpresa from "./pages/DashboardEmpresa";
 import DashboardPcd from "./pages/DashboardPcd";
+import DashboardAdmin from "./pages/DashboardAdmin";
 import PoliticasTermos from "./pages/PoliticasTermos";
 import NotFound from "./pages/NotFound";
 
@@ -26,9 +28,11 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/login-admin" element={<LoginAdmin />} />
               <Route path="/vagas" element={<Vagas />} />
               <Route path="/dashboard-empresa" element={<DashboardEmpresa />} />
               <Route path="/dashboard-pcd" element={<DashboardPcd />} />
+              <Route path="/dashboard-admin" element={<DashboardAdmin />} />
               <Route path="/politicas-termos" element={<PoliticasTermos />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
