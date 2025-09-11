@@ -39,7 +39,11 @@ const pcdSignupSchema = z.object({
   }).refine((data) => data.motora || data.auditiva || data.visual, {
     message: "Selecione pelo menos um tipo de deficiência",
   }),
-  deficiencySubtype: z.string().min(1, "Descreva o subtipo da deficiência"),
+  deficiencySubtypes: z.object({
+    amputacaoMie: z.boolean().default(false),
+    usuarioLibras: z.boolean().default(false),
+    baixaVisao: z.boolean().default(false),
+  }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Senhas não coincidem",
   path: ["confirmPassword"],
@@ -81,6 +85,18 @@ const Login = () => {
 
   const pcdSignupForm = useForm<z.infer<typeof pcdSignupSchema>>({
     resolver: zodResolver(pcdSignupSchema),
+    defaultValues: {
+      deficiencyTypes: {
+        motora: false,
+        auditiva: false,
+        visual: false,
+      },
+      deficiencySubtypes: {
+        amputacaoMie: false,
+        usuarioLibras: false,
+        baixaVisao: false,
+      },
+    },
   });
 
 
@@ -388,58 +404,132 @@ const Login = () => {
 
                       <div className="space-y-3">
                         <FormLabel>Tipo de deficiência</FormLabel>
-                        <div className="space-y-2">
-                          <FormField
-                            control={pcdSignupForm.control}
-                            name="deficiencyTypes.motora"
-                            render={({ field }) => (
-                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                                <FormControl>
-                                  <Checkbox
-                                    checked={field.value}
-                                    onCheckedChange={field.onChange}
-                                  />
-                                </FormControl>
-                                <div className="space-y-1 leading-none">
-                                  <FormLabel>Deficiência motora</FormLabel>
-                                </div>
-                              </FormItem>
+                        <div className="space-y-3">
+                          {/* Deficiência Motora */}
+                          <div className="space-y-2">
+                            <FormField
+                              control={pcdSignupForm.control}
+                              name="deficiencyTypes.motora"
+                              render={({ field }) => (
+                                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                  <FormControl>
+                                    <Checkbox
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
+                                    />
+                                  </FormControl>
+                                  <div className="space-y-1 leading-none">
+                                    <FormLabel className="font-semibold">DEFICIÊNCIA MOTORA</FormLabel>
+                                  </div>
+                                </FormItem>
+                              )}
+                            />
+                            {pcdSignupForm.watch("deficiencyTypes.motora") && (
+                              <div className="ml-6 pl-4 border-l-2 border-border">
+                                <FormField
+                                  control={pcdSignupForm.control}
+                                  name="deficiencySubtypes.amputacaoMie"
+                                  render={({ field }) => (
+                                    <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                      <FormControl>
+                                        <Checkbox
+                                          checked={field.value}
+                                          onCheckedChange={field.onChange}
+                                        />
+                                      </FormControl>
+                                      <div className="space-y-1 leading-none">
+                                        <FormLabel className="text-sm font-normal">Amputação MIE com muleta</FormLabel>
+                                      </div>
+                                    </FormItem>
+                                  )}
+                                />
+                              </div>
                             )}
-                          />
-                          <FormField
-                            control={pcdSignupForm.control}
-                            name="deficiencyTypes.auditiva"
-                            render={({ field }) => (
-                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                                <FormControl>
-                                  <Checkbox
-                                    checked={field.value}
-                                    onCheckedChange={field.onChange}
-                                  />
-                                </FormControl>
-                                <div className="space-y-1 leading-none">
-                                  <FormLabel>Deficiência auditiva</FormLabel>
-                                </div>
-                              </FormItem>
+                          </div>
+
+                          {/* Deficiência Auditiva */}
+                          <div className="space-y-2">
+                            <FormField
+                              control={pcdSignupForm.control}
+                              name="deficiencyTypes.auditiva"
+                              render={({ field }) => (
+                                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                  <FormControl>
+                                    <Checkbox
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
+                                    />
+                                  </FormControl>
+                                  <div className="space-y-1 leading-none">
+                                    <FormLabel className="font-semibold">DEFICIÊNCIA AUDITIVA</FormLabel>
+                                  </div>
+                                </FormItem>
+                              )}
+                            />
+                            {pcdSignupForm.watch("deficiencyTypes.auditiva") && (
+                              <div className="ml-6 pl-4 border-l-2 border-border">
+                                <FormField
+                                  control={pcdSignupForm.control}
+                                  name="deficiencySubtypes.usuarioLibras"
+                                  render={({ field }) => (
+                                    <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                      <FormControl>
+                                        <Checkbox
+                                          checked={field.value}
+                                          onCheckedChange={field.onChange}
+                                        />
+                                      </FormControl>
+                                      <div className="space-y-1 leading-none">
+                                        <FormLabel className="text-sm font-normal">Usuário de Libras</FormLabel>
+                                      </div>
+                                    </FormItem>
+                                  )}
+                                />
+                              </div>
                             )}
-                          />
-                          <FormField
-                            control={pcdSignupForm.control}
-                            name="deficiencyTypes.visual"
-                            render={({ field }) => (
-                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                                <FormControl>
-                                  <Checkbox
-                                    checked={field.value}
-                                    onCheckedChange={field.onChange}
-                                  />
-                                </FormControl>
-                                <div className="space-y-1 leading-none">
-                                  <FormLabel>Deficiência visual</FormLabel>
-                                </div>
-                              </FormItem>
+                          </div>
+
+                          {/* Deficiência Visual */}
+                          <div className="space-y-2">
+                            <FormField
+                              control={pcdSignupForm.control}
+                              name="deficiencyTypes.visual"
+                              render={({ field }) => (
+                                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                  <FormControl>
+                                    <Checkbox
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
+                                    />
+                                  </FormControl>
+                                  <div className="space-y-1 leading-none">
+                                    <FormLabel className="font-semibold">DEFICIÊNCIA VISUAL</FormLabel>
+                                  </div>
+                                </FormItem>
+                              )}
+                            />
+                            {pcdSignupForm.watch("deficiencyTypes.visual") && (
+                              <div className="ml-6 pl-4 border-l-2 border-border">
+                                <FormField
+                                  control={pcdSignupForm.control}
+                                  name="deficiencySubtypes.baixaVisao"
+                                  render={({ field }) => (
+                                    <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                      <FormControl>
+                                        <Checkbox
+                                          checked={field.value}
+                                          onCheckedChange={field.onChange}
+                                        />
+                                      </FormControl>
+                                      <div className="space-y-1 leading-none">
+                                        <FormLabel className="text-sm font-normal">Baixa visão</FormLabel>
+                                      </div>
+                                    </FormItem>
+                                  )}
+                                />
+                              </div>
                             )}
-                          />
+                          </div>
                         </div>
                         <FormField
                           control={pcdSignupForm.control}
@@ -451,25 +541,6 @@ const Login = () => {
                           )}
                         />
                       </div>
-
-                      <FormField
-                        control={pcdSignupForm.control}
-                        name="deficiencySubtype"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Subtipo de deficiência</FormLabel>
-                            <FormControl>
-                              <Textarea
-                                {...field}
-                                placeholder="Descreva mais detalhes sobre sua deficiência"
-                                className="resize-none"
-                                rows={3}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
 
                       <FormField
                         control={pcdSignupForm.control}
