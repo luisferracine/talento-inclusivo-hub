@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Shield, Users, Eye, Ear, Accessibility, Plus, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -14,9 +16,9 @@ import { toast } from "sonner";
 // Schemas para os formulários
 const deficienciaSchema = z.object({
   nome: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
-  tipo: z.enum(["motora", "auditiva", "visual"], {
-    required_error: "Selecione um tipo de deficiência",
-  }),
+  tipos: z.array(z.enum(["motora", "auditiva", "visual"])).min(1, "Selecione pelo menos um tipo de deficiência"),
+  barreira: z.string().optional(),
+  acessibilidade: z.string().optional(),
 });
 
 const barreiraSchema = z.object({
@@ -39,6 +41,12 @@ const DashboardAdmin = () => {
   // Forms
   const deficienciaForm = useForm<z.infer<typeof deficienciaSchema>>({
     resolver: zodResolver(deficienciaSchema),
+    defaultValues: {
+      nome: "",
+      tipos: [],
+      barreira: "",
+      acessibilidade: "",
+    },
   });
 
   const barreiraForm = useForm<z.infer<typeof barreiraSchema>>({
@@ -184,39 +192,88 @@ const DashboardAdmin = () => {
 
                       <FormField
                         control={deficienciaForm.control}
-                        name="tipo"
+                        name="tipos"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Tipo de deficiência</FormLabel>
-                            <FormControl>
-                              <RadioGroup
-                                onValueChange={field.onChange}
-                                value={field.value}
-                                className="flex flex-col space-y-2"
-                              >
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="motora" id="deficiencia-motora" />
-                                  <label htmlFor="deficiencia-motora" className="flex items-center gap-2 cursor-pointer">
-                                    <Accessibility className="w-4 h-4" />
-                                    Deficiência motora
+                            <FormLabel>Tipos de deficiência</FormLabel>
+                            <div className="space-y-2">
+                              {[
+                                { value: "motora", label: "Deficiência motora", icon: <Accessibility className="w-4 h-4" /> },
+                                { value: "auditiva", label: "Deficiência auditiva", icon: <Ear className="w-4 h-4" /> },
+                                { value: "visual", label: "Deficiência visual", icon: <Eye className="w-4 h-4" /> }
+                              ].map((item) => (
+                                <div key={item.value} className="flex items-center space-x-2">
+                                  <Checkbox
+                                    id={`deficiencia-${item.value}`}
+                                    checked={field.value?.includes(item.value as any)}
+                                    onCheckedChange={(checked) => {
+                                      const currentValue = field.value || [];
+                                      if (checked) {
+                                        field.onChange([...currentValue, item.value]);
+                                      } else {
+                                        field.onChange(currentValue.filter((v: string) => v !== item.value));
+                                      }
+                                    }}
+                                  />
+                                  <label htmlFor={`deficiencia-${item.value}`} className="flex items-center gap-2 cursor-pointer">
+                                    {item.icon}
+                                    {item.label}
                                   </label>
                                 </div>
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="auditiva" id="deficiencia-auditiva" />
-                                  <label htmlFor="deficiencia-auditiva" className="flex items-center gap-2 cursor-pointer">
-                                    <Ear className="w-4 h-4" />
-                                    Deficiência auditiva
-                                  </label>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="visual" id="deficiencia-visual" />
-                                  <label htmlFor="deficiencia-visual" className="flex items-center gap-2 cursor-pointer">
-                                    <Eye className="w-4 h-4" />
-                                    Deficiência visual
-                                  </label>
-                                </div>
-                              </RadioGroup>
-                            </FormControl>
+                              ))}
+                            </div>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={deficienciaForm.control}
+                        name="barreira"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Selecionar barreira</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecione uma barreira" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="escadas">Escadas</SelectItem>
+                                <SelectItem value="ruido-alto">Ruído alto</SelectItem>
+                                <SelectItem value="falta-contraste">Falta de contraste</SelectItem>
+                                <SelectItem value="piso-irregular">Piso irregular</SelectItem>
+                                <SelectItem value="ausencia-sinal-visual">Ausência de sinal visual</SelectItem>
+                                <SelectItem value="ausencia-sinal-sonoro">Ausência de sinal sonoro</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={deficienciaForm.control}
+                        name="acessibilidade"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Acessibilidade</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecione uma acessibilidade" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="rampa-acesso">Rampa de acesso</SelectItem>
+                                <SelectItem value="interprete-libras">Intérprete de Libras</SelectItem>
+                                <SelectItem value="leitor-tela">Leitor de tela</SelectItem>
+                                <SelectItem value="elevador">Elevador</SelectItem>
+                                <SelectItem value="piso-tatil">Piso tátil</SelectItem>
+                                <SelectItem value="sinal-sonoro">Sinal sonoro</SelectItem>
+                              </SelectContent>
+                            </Select>
                             <FormMessage />
                           </FormItem>
                         )}
