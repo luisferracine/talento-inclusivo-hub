@@ -7,15 +7,45 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Shield, Users, Eye, Ear, Accessibility, Plus, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+
+// Listas de opções
+const barreirasList = [
+  "Escadas sem rampa",
+  "Portas estreitas",
+  "Ruído excessivo",
+  "Falta de sinalização tátil",
+  "Falta de contraste visual",
+  "Ausência de intérprete",
+  "Iluminação inadequada",
+  "Piso irregular"
+];
+
+const acessibilidadesList = [
+  "Rampa de acesso",
+  "Elevador adaptado", 
+  "Intérprete de Libras",
+  "Leitor de tela",
+  "Sinalização tátil",
+  "Audio descrição",
+  "Legenda em vídeos",
+  "Contraste adequado"
+];
 
 // Schemas para os formulários
 const deficienciaSchema = z.object({
   nome: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   tipo: z.enum(["motora", "auditiva", "visual"], {
     required_error: "Selecione um tipo de deficiência",
+  }),
+  barreira: z.string({
+    required_error: "Selecione uma barreira",
+  }),
+  acessibilidade: z.string({
+    required_error: "Selecione uma acessibilidade",
   }),
 });
 
@@ -24,12 +54,24 @@ const barreiraSchema = z.object({
   tipo: z.enum(["motora", "auditiva", "visual"], {
     required_error: "Selecione um tipo de barreira",
   }),
+  barreira: z.string({
+    required_error: "Selecione uma barreira relacionada",
+  }),
+  acessibilidade: z.string({
+    required_error: "Selecione uma acessibilidade",
+  }),
 });
 
 const acessibilidadeSchema = z.object({
   nome: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   tipo: z.enum(["motora", "auditiva", "visual"], {
     required_error: "Selecione um tipo de acessibilidade",
+  }),
+  barreira: z.string({
+    required_error: "Selecione uma barreira que resolve",
+  }),
+  acessibilidade: z.string({
+    required_error: "Selecione uma acessibilidade relacionada",
   }),
 });
 
@@ -222,6 +264,56 @@ const DashboardAdmin = () => {
                         )}
                       />
 
+                      <FormField
+                        control={deficienciaForm.control}
+                        name="barreira"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Barreira relacionada</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecione uma barreira" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {barreirasList.map((barreira) => (
+                                  <SelectItem key={barreira} value={barreira}>
+                                    {barreira}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={deficienciaForm.control}
+                        name="acessibilidade"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Acessibilidade relacionada</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecione uma acessibilidade" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {acessibilidadesList.map((acessibilidade) => (
+                                  <SelectItem key={acessibilidade} value={acessibilidade}>
+                                    {acessibilidade}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
                       <Button type="submit" className="w-full">
                         <Plus className="w-4 h-4 mr-2" />
                         Cadastrar Deficiência
@@ -301,6 +393,56 @@ const DashboardAdmin = () => {
                         )}
                       />
 
+                      <FormField
+                        control={barreiraForm.control}
+                        name="barreira"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Barreira relacionada</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecione uma barreira" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {barreirasList.map((barreira) => (
+                                  <SelectItem key={barreira} value={barreira}>
+                                    {barreira}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={barreiraForm.control}
+                        name="acessibilidade"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Acessibilidade que resolve</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecione uma acessibilidade" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {acessibilidadesList.map((acessibilidade) => (
+                                  <SelectItem key={acessibilidade} value={acessibilidade}>
+                                    {acessibilidade}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
                       <Button type="submit" className="w-full">
                         <Plus className="w-4 h-4 mr-2" />
                         Cadastrar Barreira
@@ -375,6 +517,56 @@ const DashboardAdmin = () => {
                                 </div>
                               </RadioGroup>
                             </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={acessibilidadeForm.control}
+                        name="barreira"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Barreira que resolve</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecione uma barreira" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {barreirasList.map((barreira) => (
+                                  <SelectItem key={barreira} value={barreira}>
+                                    {barreira}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={acessibilidadeForm.control}
+                        name="acessibilidade"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Acessibilidade relacionada</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecione uma acessibilidade" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {acessibilidadesList.map((acessibilidade) => (
+                                  <SelectItem key={acessibilidade} value={acessibilidade}>
+                                    {acessibilidade}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
                             <FormMessage />
                           </FormItem>
                         )}
