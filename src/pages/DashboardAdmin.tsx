@@ -17,8 +17,8 @@ import { toast } from "sonner";
 const deficienciaSchema = z.object({
   nome: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   tipos: z.array(z.enum(["motora", "auditiva", "visual"])).min(1, "Selecione pelo menos um tipo de deficiência"),
-  barreira: z.string().optional(),
-  acessibilidade: z.string().optional(),
+  barreira: z.array(z.string()).optional(),
+  acessibilidade: z.array(z.string()).optional(),
 });
 
 const barreiraSchema = z.object({
@@ -38,8 +38,8 @@ const DashboardAdmin = () => {
     defaultValues: {
       nome: "",
       tipos: [],
-      barreira: "",
-      acessibilidade: "",
+      barreira: [],
+      acessibilidade: [],
     },
   });
 
@@ -227,50 +227,34 @@ const DashboardAdmin = () => {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Selecionar barreira</FormLabel>
-                            <FormControl>
-                              <RadioGroup
-                                onValueChange={field.onChange}
-                                value={field.value}
-                                className="flex flex-col space-y-2"
-                              >
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="escadas" id="barreira-escadas" />
-                                  <label htmlFor="barreira-escadas" className="cursor-pointer">
-                                    Escadas
+                            <div className="space-y-2">
+                              {[
+                                { value: "escadas", label: "Escadas" },
+                                { value: "ruido-alto", label: "Ruído alto" },
+                                { value: "falta-contraste", label: "Falta de contraste" },
+                                { value: "piso-irregular", label: "Piso irregular" },
+                                { value: "ausencia-sinal-visual", label: "Ausência de sinal visual" },
+                                { value: "ausencia-sinal-sonoro", label: "Ausência de sinal sonoro" }
+                              ].map((item) => (
+                                <div key={item.value} className="flex items-center space-x-2">
+                                  <Checkbox
+                                    id={`barreira-${item.value}`}
+                                    checked={field.value?.includes(item.value)}
+                                    onCheckedChange={(checked) => {
+                                      const currentValue = field.value || [];
+                                      if (checked) {
+                                        field.onChange([...currentValue, item.value]);
+                                      } else {
+                                        field.onChange(currentValue.filter((v: string) => v !== item.value));
+                                      }
+                                    }}
+                                  />
+                                  <label htmlFor={`barreira-${item.value}`} className="cursor-pointer">
+                                    {item.label}
                                   </label>
                                 </div>
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="ruido-alto" id="barreira-ruido" />
-                                  <label htmlFor="barreira-ruido" className="cursor-pointer">
-                                    Ruído alto
-                                  </label>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="falta-contraste" id="barreira-contraste" />
-                                  <label htmlFor="barreira-contraste" className="cursor-pointer">
-                                    Falta de contraste
-                                  </label>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="piso-irregular" id="barreira-piso" />
-                                  <label htmlFor="barreira-piso" className="cursor-pointer">
-                                    Piso irregular
-                                  </label>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="ausencia-sinal-visual" id="barreira-visual" />
-                                  <label htmlFor="barreira-visual" className="cursor-pointer">
-                                    Ausência de sinal visual
-                                  </label>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="ausencia-sinal-sonoro" id="barreira-sonoro" />
-                                  <label htmlFor="barreira-sonoro" className="cursor-pointer">
-                                    Ausência de sinal sonoro
-                                  </label>
-                                </div>
-                              </RadioGroup>
-                            </FormControl>
+                              ))}
+                            </div>
                             <FormMessage />
                           </FormItem>
                         )}
@@ -282,50 +266,34 @@ const DashboardAdmin = () => {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Acessibilidade</FormLabel>
-                            <FormControl>
-                              <RadioGroup
-                                onValueChange={field.onChange}
-                                value={field.value}
-                                className="flex flex-col space-y-2"
-                              >
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="rampa-acesso" id="acess-rampa" />
-                                  <label htmlFor="acess-rampa" className="cursor-pointer">
-                                    Rampa de acesso
+                            <div className="space-y-2">
+                              {[
+                                { value: "rampa-acesso", label: "Rampa de acesso" },
+                                { value: "interprete-libras", label: "Intérprete de Libras" },
+                                { value: "leitor-tela", label: "Leitor de tela" },
+                                { value: "elevador", label: "Elevador" },
+                                { value: "piso-tatil", label: "Piso tátil" },
+                                { value: "sinal-sonoro", label: "Sinal sonoro" }
+                              ].map((item) => (
+                                <div key={item.value} className="flex items-center space-x-2">
+                                  <Checkbox
+                                    id={`acessibilidade-${item.value}`}
+                                    checked={field.value?.includes(item.value)}
+                                    onCheckedChange={(checked) => {
+                                      const currentValue = field.value || [];
+                                      if (checked) {
+                                        field.onChange([...currentValue, item.value]);
+                                      } else {
+                                        field.onChange(currentValue.filter((v: string) => v !== item.value));
+                                      }
+                                    }}
+                                  />
+                                  <label htmlFor={`acessibilidade-${item.value}`} className="cursor-pointer">
+                                    {item.label}
                                   </label>
                                 </div>
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="interprete-libras" id="acess-libras" />
-                                  <label htmlFor="acess-libras" className="cursor-pointer">
-                                    Intérprete de Libras
-                                  </label>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="leitor-tela" id="acess-leitor" />
-                                  <label htmlFor="acess-leitor" className="cursor-pointer">
-                                    Leitor de tela
-                                  </label>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="elevador" id="acess-elevador" />
-                                  <label htmlFor="acess-elevador" className="cursor-pointer">
-                                    Elevador
-                                  </label>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="piso-tatil" id="acess-tatil" />
-                                  <label htmlFor="acess-tatil" className="cursor-pointer">
-                                    Piso tátil
-                                  </label>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <RadioGroupItem value="sinal-sonoro" id="acess-sinal" />
-                                  <label htmlFor="acess-sinal" className="cursor-pointer">
-                                    Sinal sonoro
-                                  </label>
-                                </div>
-                              </RadioGroup>
-                            </FormControl>
+                              ))}
+                            </div>
                             <FormMessage />
                           </FormItem>
                         )}
