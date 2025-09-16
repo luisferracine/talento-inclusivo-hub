@@ -9,9 +9,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Shield, Users, Eye, Ear, Accessibility, Plus, LogOut } from "lucide-react";
+import { Shield, Users, Eye, Ear, Accessibility, Plus, LogOut, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 // Schemas para os formulários
 const deficienciaSchema = z.object({
@@ -29,8 +30,18 @@ const acessibilidadeSchema = z.object({
   nome: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
 });
 
+const changePasswordSchema = z.object({
+  currentPassword: z.string().min(6, "Senha atual obrigatória"),
+  newPassword: z.string().min(6, "Nova senha deve ter pelo menos 6 caracteres"),
+  confirmPassword: z.string(),
+}).refine((data) => data.newPassword === data.confirmPassword, {
+  message: "Senhas não coincidem",
+  path: ["confirmPassword"],
+});
+
 const DashboardAdmin = () => {
   const [activeForm, setActiveForm] = useState<'deficiencia' | 'barreira' | 'acessibilidade'>('deficiencia');
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
 
   // Forms
   const deficienciaForm = useForm<z.infer<typeof deficienciaSchema>>({
@@ -51,6 +62,10 @@ const DashboardAdmin = () => {
     resolver: zodResolver(acessibilidadeSchema),
   });
 
+  const changePasswordForm = useForm<z.infer<typeof changePasswordSchema>>({
+    resolver: zodResolver(changePasswordSchema),
+  });
+
   // Handlers
   const onDeficienciaSubmit = (values: z.infer<typeof deficienciaSchema>) => {
     console.log("Deficiência:", values);
@@ -68,6 +83,13 @@ const DashboardAdmin = () => {
     console.log("Acessibilidade:", values);
     toast.success("Acessibilidade cadastrada com sucesso!");
     acessibilidadeForm.reset();
+  };
+
+  const onChangePassword = (values: z.infer<typeof changePasswordSchema>) => {
+    console.log("Change Password:", values);
+    toast.success("Senha alterada com sucesso!");
+    setIsChangePasswordOpen(false);
+    changePasswordForm.reset();
   };
 
   const getTipoLabel = (tipo: string) => {
@@ -103,12 +125,23 @@ const DashboardAdmin = () => {
                 <p className="text-sm text-muted-foreground">Gerenciamento do sistema</p>
               </div>
             </div>
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/login-admin" className="flex items-center gap-2">
-                <LogOut className="w-4 h-4" />
-                Sair
-              </Link>
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => setIsChangePasswordOpen(true)}
+                className="gap-2"
+              >
+                <Lock className="w-4 h-4" />
+                Alterar Senha
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/login-admin" className="flex items-center gap-2">
+                  <LogOut className="w-4 h-4" />
+                  Sair
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -391,6 +424,89 @@ const DashboardAdmin = () => {
           </div>
         </div>
       </div>
+
+      {/* Change Password Modal */}
+      <Dialog open={isChangePasswordOpen} onOpenChange={setIsChangePasswordOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Alterar Senha</DialogTitle>
+            <DialogDescription>
+              Digite sua senha atual e a nova senha
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...changePasswordForm}>
+            <form onSubmit={changePasswordForm.handleSubmit(onChangePassword)} className="space-y-4">
+              <FormField
+                control={changePasswordForm.control}
+                name="currentPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Senha Atual</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                        <Input
+                          {...field}
+                          type="password"
+                          placeholder="••••••••"
+                          className="pl-10"
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={changePasswordForm.control}
+                name="newPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nova Senha</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                        <Input
+                          {...field}
+                          type="password"
+                          placeholder="••••••••"
+                          className="pl-10"
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={changePasswordForm.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirmar Nova Senha</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                        <Input
+                          {...field}
+                          type="password"
+                          placeholder="••••••••"
+                          className="pl-10"
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full">
+                <Lock className="w-4 h-4 mr-2" />
+                Alterar Senha
+              </Button>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
