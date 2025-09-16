@@ -34,6 +34,8 @@ import { toast } from "sonner";
 
 // Schemas
 const colaboradorLoginSchema = z.object({
+  nome: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+  setor: z.string().min(2, "Setor é obrigatório"),
   email: z.string().email("Email inválido"),
   password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
 });
@@ -470,11 +472,51 @@ const DashboardEmpresa = () => {
           <DialogHeader>
             <DialogTitle>Login Colaborador</DialogTitle>
             <DialogDescription>
-              Acesso exclusivo para membros da equipe
+              Preencha os dados para acessar como colaborador da empresa
             </DialogDescription>
           </DialogHeader>
           <Form {...colaboradorLoginForm}>
             <form onSubmit={colaboradorLoginForm.handleSubmit(onColaboradorLogin)} className="space-y-4">
+              <FormField
+                control={colaboradorLoginForm.control}
+                name="nome"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nome Completo</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <User className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                        <Input
+                          {...field}
+                          placeholder="Seu nome completo"
+                          className="pl-10"
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={colaboradorLoginForm.control}
+                name="setor"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Setor</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Building className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                        <Input
+                          {...field}
+                          placeholder="Ex: Recursos Humanos, TI, Marketing"
+                          className="pl-10"
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={colaboradorLoginForm.control}
                 name="email"
