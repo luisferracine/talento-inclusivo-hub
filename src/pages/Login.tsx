@@ -439,7 +439,7 @@ const Login = () => {
                                     />
                                   </FormControl>
                                   <div className="space-y-1 leading-none">
-                                    <FormLabel className="font-semibold">DEFICIÊNCIA MOTORA</FormLabel>
+                                    <FormLabel className="font-semibold">Deficiência motora</FormLabel>
                                   </div>
                                 </FormItem>
                               )}
@@ -481,7 +481,7 @@ const Login = () => {
                                     />
                                   </FormControl>
                                   <div className="space-y-1 leading-none">
-                                    <FormLabel className="font-semibold">DEFICIÊNCIA AUDITIVA</FormLabel>
+                                    <FormLabel className="font-semibold">Deficiência auditiva</FormLabel>
                                   </div>
                                 </FormItem>
                               )}
@@ -523,7 +523,7 @@ const Login = () => {
                                     />
                                   </FormControl>
                                   <div className="space-y-1 leading-none">
-                                    <FormLabel className="font-semibold">DEFICIÊNCIA VISUAL</FormLabel>
+                                    <FormLabel className="font-semibold">Deficiência visual</FormLabel>
                                   </div>
                                 </FormItem>
                               )}
